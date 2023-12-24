@@ -12,8 +12,15 @@
     "test:coverage": "pnpm test -- --coverage"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "email": "lucassilved@gmail.com",
+    "name": "Lucas Vinicius (lucassf2k)",
+    "url": "https://github.com/lucassf2k"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
     "@types/jest": "^29.5.11",
