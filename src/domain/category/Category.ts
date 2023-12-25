@@ -1,4 +1,5 @@
 import { IdGenerate } from '@/domain/IdGenerate'
+import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 const REGEX_TO_VALIDATE_NAME = /^[a-zA-Z]+$/
 
@@ -10,7 +11,7 @@ export class Category {
   ) {}
 
   static create(name: string): Category {
-    if (!this.validateName(name)) throw new Error(`Invalid param: ${name}`)
+    if (!this.validateName(name)) throw new InvalidParameterError(name)
     const newId = IdGenerate.uuid()
     const newDate = new Date()
     return new Category(newId, name, newDate)

@@ -1,4 +1,5 @@
 import { Category } from '@/domain/category/Category'
+import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 describe('Category Test', () => {
   test('should be create a new category', () => {
@@ -11,14 +12,14 @@ describe('Category Test', () => {
   test('should not create a new category with a name that is made up of numbers', () => {
     const nameInvalid = '1235'
     expect(() => Category.create(nameInvalid)).toThrow(
-      `Invalid param: ${nameInvalid}`,
+      new InvalidParameterError(nameInvalid),
     )
   })
 
   test('You should not create a new category with a name that is made up of characters and symbols', () => {
     const nameInvalid = 'Fantasi@'
     expect(() => Category.create(nameInvalid)).toThrow(
-      `Invalid param: ${nameInvalid}`,
+      new InvalidParameterError(nameInvalid),
     )
   })
 })
