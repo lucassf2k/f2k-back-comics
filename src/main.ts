@@ -1,6 +1,6 @@
-import { Hello } from '@/example/example'
-
 function main(): void {
-  console.log(`${Hello}, e ai`)
+  const welcome = 'Bem vindo a F2K Comics'
+  console.log(welcome)
 }
+
 main()
