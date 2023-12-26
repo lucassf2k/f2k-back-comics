@@ -1,4 +1,4 @@
-import { Category } from '@/domain/category/Category'
+import { Category } from '@/domain/Category'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 describe('Category Test', () => {
