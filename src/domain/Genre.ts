@@ -3,18 +3,18 @@ import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 const REGEX_TO_VALIDATE_NAME = /^[\p{L}]+$/u
 
-export class Category {
+export class Genre {
   private constructor(
     readonly id: string,
     readonly name: string,
     readonly createdAt: Date,
   ) {}
 
-  static create(name: string): Category {
+  static create(name: string): Genre {
     if (!this.validateName(name)) throw new InvalidParameterError(name)
     const newId = IdGenerate.ulid()
     const newDate = new Date()
-    return new Category(newId, name, newDate)
+    return new Genre(newId, name, newDate)
   }
 
   static validateName(name: string): boolean {
