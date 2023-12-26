@@ -1,26 +1,26 @@
-import { Category } from '@/domain/Category'
-import { ICategoriesRepository } from '@/application/repositories/ICategoriesRepository'
-import { CategoriesInMemoryRepository } from '@/infrastructure/repositories/inmemory/CategoriesInMemoryCategory'
+import { Genre } from '@/domain/Genre'
+import { IGenresRepository } from '@/application/repositories/IGenresRepository'
+import { GenresInMemoryRepository } from '@/infrastructure/repositories/inmemory/GenresInMemoryRepository'
 
-let categoriesRepository: ICategoriesRepository
+let GenresRepository: IGenresRepository
 
-describe('CategoriesRepository Test', () => {
+describe('GenresRepository Test', () => {
   beforeEach(() => {
-    categoriesRepository = new CategoriesInMemoryRepository()
+    GenresRepository = new GenresInMemoryRepository()
   })
 
-  test('should be create a category', async () => {
-    const newCategory = Category.create('Drama')
-    const sut = await categoriesRepository.save(newCategory)
-    expect(sut).toBe(newCategory)
+  test('should be create a Genre', async () => {
+    const newGenre = Genre.create('Drama')
+    const sut = await GenresRepository.save(newGenre)
+    expect(sut).toBe(newGenre)
   })
 
-  test('should be return all categories', async () => {
-    const newCategory = Category.create('Drama')
-    const newCategory2 = Category.create('Fantasia')
-    await categoriesRepository.save(newCategory)
-    await categoriesRepository.save(newCategory2)
-    const sut = await categoriesRepository.list()
+  test('should be return all Genres', async () => {
+    const newGenre = Genre.create('Drama')
+    const newGenre2 = Genre.create('Fantasia')
+    await GenresRepository.save(newGenre)
+    await GenresRepository.save(newGenre2)
+    const sut = await GenresRepository.list()
     expect(sut.length).toBe(2)
   })
 })
