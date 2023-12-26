@@ -1,7 +1,7 @@
 import { IdGenerate } from '@/domain/IdGenerate'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
-const REGEX_TO_VALIDATE_NAME = /^[a-zA-Z]+$/
+const REGEX_TO_VALIDATE_NAME = /^[\p{L}]+$/u
 
 export class Category {
   private constructor(

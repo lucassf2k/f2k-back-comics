@@ -13,7 +13,7 @@ export class CreateCategory implements ICreateCategory {
   async execute(input: CreateCategoryInput): Promise<CreateCategoryOutPut> {
     const newCategory = Category.create(input.name)
     const response = await this.categoriesRepository.save(newCategory)
-    const url = `${AppEnvs.APP_DNS}/${response.id}`
+    const url = `${AppEnvs.APP_DNS}/categories/${response.id}`
     return { url } as CreateCategoryOutPut
   }
 }
