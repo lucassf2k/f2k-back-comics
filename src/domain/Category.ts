@@ -12,7 +12,7 @@ export class Category {
 
   static create(name: string): Category {
     if (!this.validateName(name)) throw new InvalidParameterError(name)
-    const newId = IdGenerate.uuid()
+    const newId = IdGenerate.ulid()
     const newDate = new Date()
     return new Category(newId, name, newDate)
   }
