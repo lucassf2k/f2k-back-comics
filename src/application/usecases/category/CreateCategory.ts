@@ -3,7 +3,7 @@ import {
   CreateCategoryInput,
   CreateCategoryOutPut,
   ICreateCategory,
-} from '@/domain/usecases/category/ICreateCategory'
+} from '@/application/usecases/protocols/genres/ICreateCategory'
 import { ICategoriesRepository } from '@/application/repositories/ICategoriesRepository'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
 

@@ -1,7 +1,7 @@
 import {
   IListCategories,
   ListCategoriesOutPut,
-} from '@/domain/usecases/category/IListCategories'
+} from '@/application/usecases/protocols/genres/IListCategories'
 import { ICategoriesRepository } from '@/application/repositories/ICategoriesRepository'
 
 export class ListCategories implements IListCategories {

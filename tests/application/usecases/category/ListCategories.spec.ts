@@ -16,7 +16,6 @@ describe('ListCategories Test', () => {
     await createCategory.execute({ name: 'Ação' })
     const sut = new ListCategories(categoriesRepository)
     const categories = await sut.execute()
-    console.log(categories)
     expect(categories.length).toBe(2)
   })
 })
