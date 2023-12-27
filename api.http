@@ -1,0 +1,11 @@
+# Genres
+
+GET http://localhost:3001/api/genres
+
+###
+POST http://localhost:3001/api/genres
+content-type: application/json
+
+{
+  "name": "Aço13"
+}
