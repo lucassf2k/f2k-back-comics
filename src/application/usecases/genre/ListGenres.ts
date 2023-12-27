@@ -5,9 +5,9 @@ import {
 import { IGenresRepository } from '@/domain/genre/IGenresRepository'
 
 export class ListGenres implements IListGenres {
-  constructor(private readonly GenresRepository: IGenresRepository) {}
+  constructor(private readonly genresRepository: IGenresRepository) {}
 
   async execute(): Promise<ListGenresOutPut[]> {
-    return this.GenresRepository.list()
+    return this.genresRepository.list()
   }
 }
