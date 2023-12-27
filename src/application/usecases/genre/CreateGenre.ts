@@ -3,7 +3,7 @@ import {
   CreateGenreInput,
   CreateGenreOutPut,
   ICreateGenre,
-} from '@/application/usecases/protocols/genre/ICreateGenre'
+} from '@/domain/usecases/genre/ICreateGenre'
 import { IGenresRepository } from '@/domain/genre/IGenresRepository'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
 
