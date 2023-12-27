@@ -1,5 +1,5 @@
-import { IdGenerate } from '@/domain/IdGenerate'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
+import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 const REGEX_TO_VALIDATE_NAME = /^[\p{L}]+$/u
 
@@ -12,7 +12,7 @@ export class Genre {
 
   static create(name: string): Genre {
     if (!this.validateName(name)) throw new InvalidParameterError(name)
-    const newId = IdGenerate.ulid()
+    const newId = IdGenerateService.ULID()
     const newDate = new Date()
     return new Genre(newId, name, newDate)
   }
