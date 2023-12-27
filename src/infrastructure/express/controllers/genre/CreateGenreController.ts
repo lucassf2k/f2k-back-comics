@@ -3,8 +3,8 @@ import {
   CreateGenreInput,
   ICreateGenre,
 } from '@/domain/usecases/genre/ICreateGenre'
+import { ApiError } from '@/domain/errors/ApiError'
 import { HttpStatusCodes } from '@/application/enums/HttpStatusCodes'
-import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 export class CreateGenreController {
   constructor(private readonly createGenre: ICreateGenre) {}
@@ -15,12 +15,14 @@ export class CreateGenreController {
         name: request.body.name,
       }
       const { url } = await this.createGenre.execute(input)
-      return response.status(HttpStatusCodes.CREATED).header('location', url)
+      return response
+        .setHeader('location', url)
+        .sendStatus(HttpStatusCodes.CREATED)
     } catch (err) {
-      if (err instanceof InvalidParameterError) {
+      if (err instanceof ApiError) {
         return response
-          .status(HttpStatusCodes.BAD_REQUEST)
-          .json({ name: err.name, body: err.message })
+          .status(err.code)
+          .json({ name: err.name, message: err.message })
       }
       return response.sendStatus(HttpStatusCodes.INTERNAL_SERVER_ERROR)
     }
