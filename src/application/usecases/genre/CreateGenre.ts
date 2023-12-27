@@ -1,10 +1,10 @@
-import { Genre } from '@/domain/Genre'
+import { Genre } from '@/domain/genre/Genre'
 import {
   CreateGenreInput,
   CreateGenreOutPut,
   ICreateGenre,
 } from '@/application/usecases/protocols/genre/ICreateGenre'
-import { IGenresRepository } from '@/application/repositories/IGenresRepository'
+import { IGenresRepository } from '@/domain/genre/IGenresRepository'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
 
 export class CreateGenre implements ICreateGenre {

@@ -2,7 +2,7 @@ import {
   IListGenres,
   ListGenresOutPut,
 } from '@/application/usecases/protocols/genre/IListGenres'
-import { IGenresRepository } from '@/application/repositories/IGenresRepository'
+import { IGenresRepository } from '@/domain/genre/IGenresRepository'
 
 export class ListGenres implements IListGenres {
   constructor(private readonly GenresRepository: IGenresRepository) {}

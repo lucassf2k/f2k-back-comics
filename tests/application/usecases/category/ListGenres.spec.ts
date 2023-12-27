@@ -1,6 +1,6 @@
 import { ListGenres } from '@/application/usecases/genre/ListGenres'
+import { IGenresRepository } from '@/domain/genre/IGenresRepository'
 import { CreateGenre } from '@/application/usecases/genre/CreateGenre'
-import { IGenresRepository } from '@/application/repositories/IGenresRepository'
 import { GenresInMemoryRepository } from '@/infrastructure/repositories/inmemory/GenresInMemoryRepository'
 
 let GenresRepository: IGenresRepository
