@@ -1,4 +1,7 @@
-import { IListGenres, ListGenresOutPut } from '@/domain/usecases/IListGenres'
+import {
+  IListGenres,
+  ListGenresOutPut,
+} from '@/application/usecases/protocols/IListGenres'
 import { IGenresRepository } from '@/application/repositories/IGenresRepository'
 
 export class ListGenres implements IListGenres {
