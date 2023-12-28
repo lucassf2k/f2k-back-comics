@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import { routes } from '@/infrastructure/express/routes'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
 

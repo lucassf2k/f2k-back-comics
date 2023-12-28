@@ -18,13 +18,13 @@ export class CreateGenreController {
       return response
         .setHeader('location', url)
         .sendStatus(HttpStatusCodes.CREATED)
-    } catch (err) {
-      if (err instanceof ApiError) {
-        return response
-          .status(err.code)
-          .json({ name: err.name, message: err.message })
+    } catch (error) {
+      if (error instanceof ApiError) {
+        return response.status(error.code).send(error.message)
       }
-      return response.sendStatus(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      return response
+        .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+        .send('Internal server error')
     }
   }
 }
