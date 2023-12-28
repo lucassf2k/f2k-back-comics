@@ -11,9 +11,7 @@ export class CreateGenreController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const input: CreateGenreInput = {
-        name: request.body.name,
-      }
+      const input: CreateGenreInput = request.body
       const { url } = await this.createGenre.execute(input)
       return response
         .setHeader('location', url)
