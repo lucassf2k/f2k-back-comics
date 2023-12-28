@@ -12,14 +12,18 @@ describe('Genre Test', () => {
   test('should not create a new Genre with a name that is made up of numbers', () => {
     const nameInvalid = '1235'
     expect(() => Genre.create(nameInvalid)).toThrow(
-      new InvalidParameterError(nameInvalid),
+      new InvalidParameterError(
+        `The property name cannot contain special symbols or numbers`,
+      ),
     )
   })
 
   test('You should not create a new Genre with a name that is made up of characters and symbols', () => {
     const nameInvalid = 'Fantasi@'
     expect(() => Genre.create(nameInvalid)).toThrow(
-      new InvalidParameterError(nameInvalid),
+      new InvalidParameterError(
+        `The property name cannot contain special symbols or numbers`,
+      ),
     )
   })
 })

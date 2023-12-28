@@ -3,8 +3,8 @@ import {
   CreateGenreInput,
   ICreateGenre,
 } from '@/domain/usecases/genre/ICreateGenre'
-import { ApiError } from '@/domain/errors/ApiError'
 import { HttpStatusCodes } from '@/application/enums/HttpStatusCodes'
+import { errorHandler } from '../../middlewares/errorHandler'
 
 export class CreateGenreController {
   constructor(private readonly createGenre: ICreateGenre) {}
@@ -17,12 +17,7 @@ export class CreateGenreController {
         .setHeader('location', url)
         .sendStatus(HttpStatusCodes.CREATED)
     } catch (error) {
-      if (error instanceof ApiError) {
-        return response.status(error.code).send(error.message)
-      }
-      return response
-        .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
-        .send('Internal server error')
+      errorHandler(error, request, response)
     }
   }
 }

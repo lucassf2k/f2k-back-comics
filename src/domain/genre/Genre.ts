@@ -13,7 +13,7 @@ export class Genre {
   static create(name: string): Genre {
     if (!this.validateName(name))
       throw new InvalidParameterError(
-        `${name} cannot contain special symbols or numbers`,
+        `The property name cannot contain special symbols or numbers`,
       )
     const newId = IdGenerateService.ULID()
     const newDate = new Date()

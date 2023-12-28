@@ -8,7 +8,7 @@ export const errorHandler = (
   error: Error,
   request: Request,
   response: Response,
-  next: NextFunction,
+  next?: NextFunction,
 ): Response<any, Record<string, any>> => {
   if (error instanceof ApiError) {
     return response.status(error.code).send(error.message)
