@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express'
-import { IListGenres } from '@/domain/usecases/genre/IListGenres'
+import { IListGenres } from '@/domain/usecases/IListGenres'
 
 export class ListGenresController {
   constructor(private readonly listGenres: IListGenres) {}

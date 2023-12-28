@@ -1,4 +1,4 @@
-import { Genre } from '@/domain/genre/Genre'
+import { Genre } from '@/domain/Genre'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 describe('Genre Test', () => {

@@ -1,11 +1,8 @@
 import type { Request, Response } from 'express'
-import {
-  CreateGenreInput,
-  ICreateGenre,
-} from '@/domain/usecases/genre/ICreateGenre'
 import { HttpStatusCodes } from '@/application/enums/HttpStatusCodes'
-import { errorHandler } from '../../middlewares/errorHandler'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
+import { CreateGenreInput, ICreateGenre } from '@/domain/usecases/ICreateGenre'
+import { errorHandler } from '@/infrastructure/express/middlewares/errorHandler'
 
 export class CreateGenreController {
   constructor(private readonly createGenre: ICreateGenre) {}

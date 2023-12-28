@@ -1,5 +1,5 @@
-import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
+import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 const REGEX_TO_VALIDATE_NAME = /^[\p{L}]+$/u
 

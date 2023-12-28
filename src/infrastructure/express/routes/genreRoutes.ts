@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Router, Request, Response } from 'express'
 import { GenresInMemoryRepository } from '@/infrastructure/repositories/inmemory/GenresInMemoryRepository'
-import { ListGenresControllerFactory } from '@/infrastructure/express/factory/genre/ListGenresControllerFactory'
-import { CreateGenreControllerFactory } from '@/infrastructure/express/factory/genre/CreateGenreControllerFactory'
+import { ListGenresControllerFactory } from '@/infrastructure/express/factory/ListGenresControllerFactory'
+import { CreateGenreControllerFactory } from '@/infrastructure/express/factory/CreateGenreControllerFactory'
 
 const genreRoutes = Router()
 const genresInMemoryRepository = new GenresInMemoryRepository()
