@@ -1,4 +1,4 @@
-import { Genre } from '@/domain/genre/Genre'
+import { Genre } from '@/domain/Genre'
 
 export interface IGenresRepository {
   save(input: Genre): Promise<Genre>
