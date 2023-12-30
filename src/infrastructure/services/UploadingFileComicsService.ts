@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { extname } from 'node:path'
+import { extname, resolve, join } from 'node:path'
 import { randomInt } from 'node:crypto'
 import { createWriteStream, mkdirSync } from 'node:fs'
 import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
@@ -30,7 +30,10 @@ export class UploadingFileComicsService {
     fileExtension: string,
     directory: string,
   ): string {
-    return `${directory}/${IdGenerateService.ULID()}${this.getRandomInt()}${fileExtension}`
+    return join(
+      directory,
+      `${IdGenerateService.ULID()}${this.getRandomInt()}${fileExtension}`,
+    )
   }
 
   private static getRandomInt(): number {
@@ -38,7 +41,10 @@ export class UploadingFileComicsService {
   }
 
   private static createDirectory(): string {
-    const directorName = `${IdGenerateService.ULID()}${this.getRandomInt()}`
-    return mkdirSync(`${BASE_DIRECTORY}/${directorName}`, { recursive: true })
+    const directoryName = `${IdGenerateService.ULID()}${this.getRandomInt()}`
+    return mkdirSync(
+      resolve(__dirname, '..', '..', '..', 'comics', `${directoryName}`),
+      { recursive: true },
+    )
   }
 }
