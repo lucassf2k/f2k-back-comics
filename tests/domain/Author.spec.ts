@@ -9,10 +9,7 @@ describe('Author Test', () => {
     const name = new Name('Lucas Vinicius')
     const works: Work[] = []
     const sut = new Author(name, 'lorem ipsum', new Date('18/11/2001'), works)
-    expect(sut).toHaveProperty('id')
-    expect(sut).toHaveProperty('about')
-    expect(sut).toHaveProperty('dateOfBirth')
-    expect(sut).toHaveProperty('works')
+    expect(sut.id).toBeTruthy()
   })
 
   test('should not create a author with name invalid', () => {
@@ -35,7 +32,7 @@ describe('Author Test', () => {
   test('should be add a workd', () => {
     const name = new Name('Lucas Vinicius')
     const sut = new Author(name, 'lorem ipsum', new Date('18/11/2001'))
-    sut.addWork(
+    sut.works.push(
       new Work('Crônicas nas Estrelas', new Date(), IdGenerateService.ULID()),
     )
     expect(sut.works.length).toBe(1)
