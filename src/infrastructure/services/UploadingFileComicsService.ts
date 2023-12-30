@@ -5,7 +5,7 @@ import { createWriteStream, mkdirSync } from 'node:fs'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
-type File = {
+export type File = {
   originalname: string
   buffer: Buffer
 }
@@ -15,7 +15,6 @@ const MAXIMUM_TO_RAFLE = 9999
 
 export class UploadingFileComicsService {
   static async execute(file: File): Promise<boolean> {
-    if (!file) throw new InvalidParameterError('Field file is required')
     const fileExtension = extname(file.originalname)
     const directory = this.createDirectory()
     const filePath = this.createFilename(fileExtension, directory)
