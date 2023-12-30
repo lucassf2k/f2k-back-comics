@@ -2,7 +2,6 @@
 import { randomInt } from 'node:crypto'
 import { extname, resolve, join } from 'node:path'
 import { createWriteStream, mkdirSync } from 'node:fs'
-import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 export type File = {
@@ -14,14 +13,14 @@ const MiNIMUM_TO_RAFLE = 0
 const MAXIMUM_TO_RAFLE = 9999
 
 export class UploadingFileComicsService {
-  static async execute(file: File): Promise<boolean> {
+  static async execute(file: File): Promise<string> {
     const fileExtension = extname(file.originalname)
     const directory = this.createDirectory()
     const filePath = this.createFilename(fileExtension, directory)
     const fileStream = createWriteStream(filePath)
-    const haveSucess = fileStream.write(file.buffer)
+    fileStream.write(file.buffer)
     fileStream.end()
-    return haveSucess
+    return filePath
   }
 
   private static createFilename(

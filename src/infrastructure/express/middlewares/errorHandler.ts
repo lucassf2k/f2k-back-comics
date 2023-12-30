@@ -13,6 +13,7 @@ export const errorHandler = (
   if (error instanceof ApiError) {
     return response.status(error.code).send(error.message)
   }
+  console.error(`[${error.name}] - ${error.message}`)
   return response
     .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
     .send('Internal server error')
