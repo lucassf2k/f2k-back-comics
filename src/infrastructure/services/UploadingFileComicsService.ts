@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { extname, resolve, join } from 'node:path'
 import { randomInt } from 'node:crypto'
+import { extname, resolve, join } from 'node:path'
 import { createWriteStream, mkdirSync } from 'node:fs'
-import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
+import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 type File = {
   originalname: string
@@ -12,7 +12,6 @@ type File = {
 
 const MiNIMUM_TO_RAFLE = 0
 const MAXIMUM_TO_RAFLE = 9999
-const BASE_DIRECTORY = './comics'
 
 export class UploadingFileComicsService {
   static async execute(file: File): Promise<boolean> {
