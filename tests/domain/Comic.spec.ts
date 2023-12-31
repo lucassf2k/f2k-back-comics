@@ -29,7 +29,11 @@ describe('Comic Test', () => {
       new Date(),
       new Name('Himura Naoki'),
     )
-    const chapter = new Chapter('001', 'Marca do Trovão', new Date())
+    const chapter = new Chapter({
+      number: '001',
+      title: 'Marca do Trovão',
+      releaseDate: new Date(),
+    })
     sut.addChapter(chapter)
     expect(sut.chapters.length).toBe(1)
   })
@@ -41,12 +45,16 @@ describe('Comic Test', () => {
       new Date(),
       new Name('Himura Naoki'),
     )
-    const chapter = new Chapter('001', 'Marca do Trovão', new Date())
+    const chapter = new Chapter({
+      number: '011',
+      title: 'Marca do Trovão',
+      releaseDate: new Date(),
+    })
     sut.addChapter(chapter)
     const direcotory = UploadingService.createDirectory()
     sut.addComicPath(direcotory)
     expect(sut.path).toBeTruthy()
-    UploadingService.removeEmptyDirectory(direcotory)
+    UploadingService.removeDirectory(direcotory)
   })
 
   test('should be not add path name empty', () => {
@@ -56,7 +64,11 @@ describe('Comic Test', () => {
       new Date(),
       new Name('Himura Naoki'),
     )
-    const chapter = new Chapter('001', 'Marca do Trovão', new Date())
+    const chapter = new Chapter({
+      number: '022',
+      title: 'Marca do Trovão',
+      releaseDate: new Date(),
+    })
     sut.addChapter(chapter)
     expect(() => sut.addComicPath('')).toThrow(
       new InvalidParameterError('folder name field is mandatory'),
@@ -72,9 +84,17 @@ describe('Comic Test', () => {
     )
     const direcotory = UploadingService.createDirectory()
     sut.addComicPath(direcotory)
-    const chapter1 = new Chapter('001', 'Marca do Trovão', new Date())
+    const chapter1 = new Chapter({
+      number: '001',
+      title: 'Marca do Trovâo',
+      releaseDate: new Date(),
+    })
     chapter1.addChapterPath('cap01.pdf')
-    const chapter2 = new Chapter('002', 'Marca do Trovão', new Date())
+    const chapter2 = new Chapter({
+      number: '002',
+      title: 'Marca do Trovâo',
+      releaseDate: new Date(),
+    })
     chapter2.addChapterPath('cap02.pdf')
     sut.addChapter(chapter1)
     sut.addChapter(chapter2)
@@ -82,7 +102,7 @@ describe('Comic Test', () => {
     expect(paths.length).toBe(2)
     expect(paths[0].path).toBeTruthy()
     expect(paths[1].path).toBeTruthy()
-    UploadingService.removeEmptyDirectory(direcotory)
+    UploadingService.removeDirectory(direcotory)
   })
 
   test('should not list all chapter paths in ascending order if comic diretoctry not created', () => {
@@ -92,9 +112,17 @@ describe('Comic Test', () => {
       new Date(),
       new Name('Himura Naoki'),
     )
-    const chapter1 = new Chapter('001', 'Marca do Trovão', new Date())
+    const chapter1 = new Chapter({
+      number: '001',
+      title: 'Marca do Trovâo',
+      releaseDate: new Date(),
+    })
     chapter1.addChapterPath('cap01.pdf')
-    const chapter2 = new Chapter('002', 'Marca do Trovão', new Date())
+    const chapter2 = new Chapter({
+      number: '003',
+      title: 'Marca do Trovâo',
+      releaseDate: new Date(),
+    })
     chapter2.addChapterPath('cap02.pdf')
     sut.addChapter(chapter1)
     sut.addChapter(chapter2)

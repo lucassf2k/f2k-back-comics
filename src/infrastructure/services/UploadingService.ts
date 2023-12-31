@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { extname, join } from 'node:path'
-import { createWriteStream, mkdirSync, rmdirSync, rmSync } from 'node:fs'
+import { createWriteStream, mkdirSync, rmSync } from 'node:fs'
 import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 export type UploadingServiceInput = {
@@ -11,17 +11,15 @@ export type UploadingServiceInput = {
 const BASE_PATH = 'comics'
 
 export class UploadingService {
-  constructor(private file: UploadingServiceInput) {}
-
-  createFile(filePath: string): string {
+  static createFile(filePath: string, buffer: Buffer): string {
     const fileStream = createWriteStream(filePath)
-    fileStream.write(this.file.buffer)
+    fileStream.write(buffer)
     fileStream.end()
     return filePath
   }
 
-  createFilename(): string {
-    const fileExtension = extname(this.file.originalname)
+  static createFilename(filename: string): string {
+    const fileExtension = extname(filename)
     return `${IdGenerateService.ULID()}${fileExtension}`
   }
 
@@ -37,11 +35,7 @@ export class UploadingService {
     return join(path1, path2)
   }
 
-  static removeEmptyDirectory(path: string): void {
-    rmdirSync(path, { recursive: true })
-  }
-
-  static removeDirectoryWithContent(path: string): void {
+  static removeDirectory(path: string): void {
     rmSync(path, { recursive: true })
   }
 }
