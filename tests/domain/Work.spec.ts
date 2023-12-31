@@ -10,6 +10,6 @@ describe('Work Test', () => {
     expect(sut).toHaveProperty('id')
     expect(sut).toHaveProperty('title')
     expect(sut).toHaveProperty('releaseDate')
-    expect(sut).toHaveProperty('idComic')
+    expect(sut).toHaveProperty('path')
   })
 })

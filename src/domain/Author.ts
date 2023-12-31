@@ -26,6 +26,14 @@ export class Author {
     this.props.works = works
   }
 
+  addWork(work: Work): void {
+    this.works.push(work)
+  }
+
+  listWorks(): Work[] {
+    return this.works
+  }
+
   set name(value: Name) {
     this.props.name = value
   }

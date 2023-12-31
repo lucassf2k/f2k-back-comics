@@ -6,7 +6,7 @@ export class Work {
   constructor(
     readonly title: string,
     readonly releaseDate: Date,
-    readonly idComic: string,
+    readonly path: string,
   ) {
     if (!this.id) this.id = IdGenerateService.ULID()
   }
