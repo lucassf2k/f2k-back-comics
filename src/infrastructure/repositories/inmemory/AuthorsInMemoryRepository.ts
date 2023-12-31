@@ -16,9 +16,11 @@ export class AuthorsInMemoryRepository implements IAuthorsRepository {
     })
   }
 
-  async update(updatedAuthor: Author): Promise<Author> {
-    const haveAuthor = this.db.find((item) => item.id === updatedAuthor.id)
-    Object.assign(haveAuthor, updatedAuthor)
+  async update(updatedAuthor: Author, id: string): Promise<Author> {
+    const haveAuthor = this.db.find((item) => item.id === id)
+    haveAuthor.updateName(updatedAuthor.name)
+    haveAuthor.updateAbout(updatedAuthor.about)
+    haveAuthor.updateDateOfBirth(updatedAuthor.dateOfBirth)
     return new Promise((resolve) => {
       resolve(haveAuthor)
     })
