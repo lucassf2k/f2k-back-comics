@@ -25,22 +25,18 @@ export class UploadingService {
 
   createFilename(): string {
     const fileExtension = extname(this.file.originalname)
-    return `${IdGenerateService.ULID()}${this.getRandomInt()}${fileExtension}`
+    return `${IdGenerateService.ULID()}${fileExtension}`
   }
 
-  createDirectory(): string {
-    const directoryName = `${IdGenerateService.ULID()}${this.getRandomInt()}`
+  static createDirectory(): string {
+    const directoryName = `${IdGenerateService.ULID()}`
     return mkdirSync(
-      resolve(__dirname, '..', '..', '..', `${BASE_PATH}`, `${directoryName}`),
+      join(__dirname, '..', '..', '..', `${BASE_PATH}`, `${directoryName}`),
       { recursive: true },
     )
   }
 
-  joinPaths(path1: string, path2: string): string {
+  static joinPaths(path1: string, path2: string): string {
     return join(path1, path2)
-  }
-
-  private getRandomInt(): number {
-    return randomInt(MiNIMUM_TO_RAFLE, MAXIMUM_TO_RAFLE)
   }
 }
