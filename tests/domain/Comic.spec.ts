@@ -1,6 +1,6 @@
 import { Name } from '@/domain/Name'
-import { Genre } from '@/domain/Genre'
 import { Comic } from '@/domain/Comic'
+import { Genre } from '@/domain/Genre'
 import { Chapter } from '@/domain/Chapter'
 import { UploadingService } from '@/infrastructure/services/UploadingService'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
@@ -46,6 +46,7 @@ describe('Comic Test', () => {
     const direcotory = UploadingService.createDirectory()
     sut.addComicPath(direcotory)
     expect(sut.path).toBeTruthy()
+    UploadingService.removeEmptyDirectory(direcotory)
   })
 
   test('should be not add path name empty', () => {
@@ -81,6 +82,7 @@ describe('Comic Test', () => {
     expect(paths.length).toBe(2)
     expect(paths[0].path).toBeTruthy()
     expect(paths[1].path).toBeTruthy()
+    UploadingService.removeEmptyDirectory(direcotory)
   })
 
   test('should not list all chapter paths in ascending order if comic diretoctry not created', () => {

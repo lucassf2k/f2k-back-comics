@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
-import { randomInt } from 'node:crypto'
-import { extname, resolve, join } from 'node:path'
-import { createWriteStream, mkdirSync } from 'node:fs'
+import { extname, join } from 'node:path'
+import { createWriteStream, mkdirSync, rmdirSync, rmSync } from 'node:fs'
 import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 export type UploadingServiceInput = {
@@ -9,8 +8,6 @@ export type UploadingServiceInput = {
   buffer: Buffer
 }
 
-const MiNIMUM_TO_RAFLE = 0
-const MAXIMUM_TO_RAFLE = 9999
 const BASE_PATH = 'comics'
 
 export class UploadingService {
@@ -38,5 +35,13 @@ export class UploadingService {
 
   static joinPaths(path1: string, path2: string): string {
     return join(path1, path2)
+  }
+
+  static removeEmptyDirectory(path: string): void {
+    rmdirSync(path, { recursive: true })
+  }
+
+  static removeDirectoryWithContent(path: string): void {
+    rmSync(path, { recursive: true })
   }
 }
