@@ -4,9 +4,9 @@ import { InvalidParameterError } from './errors/InvalidParameterError'
 import { UploadingService } from '@/infrastructure/services/UploadingService'
 import { Name } from './Name'
 
-type PathsType = {
+type OutPutList = {
   path: string
-  compare: number
+  chapterNumber: number
 }
 
 export class Comic {
@@ -34,27 +34,28 @@ export class Comic {
   }
 
   addComicCoverPath(name: string): void {
-    if (!name) throw new InvalidParameterError('folder name field is mandatory')
+    if (!name) throw new InvalidParameterError('Cover name field is required')
     this.coverPath = name
   }
 
-  sortChapterNumbersAscendingOrder(): PathsType[] {
+  sortChapterNumbersAscendingOrder(): OutPutList[] {
     const paths = this.cocatenateFolderWithChapterName()
     return paths.sort(this.compareChaptersByNumber)
   }
 
-  private cocatenateFolderWithChapterName(): PathsType[] {
-    if (!this.path) throw new InvalidParameterError('Path of comic is required')
+  private cocatenateFolderWithChapterName(): OutPutList[] {
+    if (!this.path)
+      throw new InvalidParameterError('comic directories were not created')
     return this.chapters.map((chapter) => {
       return {
         path: `${UploadingService.joinPaths(this.path, chapter.path)}`,
-        compare: Number(chapter.number),
+        chapterNumber: Number(chapter.number),
       }
     })
   }
 
-  private compareChaptersByNumber(a: PathsType, b: PathsType): number {
-    return a.compare - b.compare
+  private compareChaptersByNumber(a: OutPutList, b: OutPutList): number {
+    return a.chapterNumber - b.chapterNumber
   }
 
   get id(): string {
