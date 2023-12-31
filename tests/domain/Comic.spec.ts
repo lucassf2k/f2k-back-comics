@@ -1,4 +1,5 @@
 import { Name } from '@/domain/Name'
+import { Genre } from '@/domain/Genre'
 import { Comic } from '@/domain/Comic'
 import { Chapter } from '@/domain/Chapter'
 import { UploadingService } from '@/infrastructure/services/UploadingService'
@@ -18,6 +19,7 @@ describe('Comic Test', () => {
     expect(sut).toHaveProperty('releaseDate')
     expect(sut).toHaveProperty('authorName')
     expect(sut).toHaveProperty('chapters')
+    expect(sut).toHaveProperty('genres')
   })
 
   test('should be add a chapter', () => {
@@ -120,5 +122,29 @@ describe('Comic Test', () => {
     expect(() => sut.addComicCoverPath('')).toThrow(
       new InvalidParameterError('Cover name field is required'),
     )
+  })
+
+  test('should add genre in comic', async () => {
+    const sut = new Comic(
+      'A Estrela do Oeste',
+      'Lore Episum',
+      new Date(),
+      new Name('Lucas Vinicius'),
+    )
+    sut.addGenre(Genre.create('Ação'))
+    expect(sut.genres.length).toBe(1)
+  })
+
+  test('should list all genres', async () => {
+    const sut = new Comic(
+      'A Estrela do Oeste',
+      'Lore Episum',
+      new Date(),
+      new Name('Lucas Vinicius'),
+    )
+    sut.addGenre(Genre.create('Ação'))
+    sut.addGenre(Genre.create('Fantasia'))
+    const allGenres = sut.listGenres()
+    expect(allGenres.length).toBe(2)
   })
 })

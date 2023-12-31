@@ -15,9 +15,11 @@ export class Genre {
       throw new InvalidParameterError(
         `The property name cannot contain special symbols or numbers`,
       )
-    const newId = IdGenerateService.ULID()
-    const newDate = new Date()
-    return new Genre(newId, name, newDate)
+    return new Genre(IdGenerateService.ULID(), name, new Date())
+  }
+
+  static restore(id: string, name: string, date: Date): Genre {
+    return new Genre(id, name, date)
   }
 
   static validateName(name: string): boolean {

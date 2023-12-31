@@ -1,8 +1,9 @@
+import { Name } from '@/domain/Name'
+import { Genre } from '@/domain/Genre'
 import { Chapter } from '@/domain/Chapter'
-import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 import { InvalidParameterError } from './errors/InvalidParameterError'
+import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 import { UploadingService } from '@/infrastructure/services/UploadingService'
-import { Name } from './Name'
 
 type OutPutList = {
   path: string
@@ -17,9 +18,10 @@ export class Comic {
     public synopsis: string,
     public releaseDate: Date,
     public authorName: Name,
+    readonly chapters: Chapter[] = [],
+    readonly genres: Genre[] = [],
     public path?: string,
     public coverPath?: string,
-    readonly chapters: Chapter[] = [],
   ) {
     if (!this._id) this._id = IdGenerateService.ULID()
   }
@@ -41,6 +43,14 @@ export class Comic {
   sortChapterNumbersAscendingOrder(): OutPutList[] {
     const paths = this.cocatenateFolderWithChapterName()
     return paths.sort(this.compareChaptersByNumber)
+  }
+
+  addGenre(genre: Genre): void {
+    this.genres.push(genre)
+  }
+
+  listGenres(): Genre[] {
+    return this.genres
   }
 
   private cocatenateFolderWithChapterName(): OutPutList[] {
