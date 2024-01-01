@@ -15,7 +15,7 @@ export class ChaptersInMemoryRepository implements IChaptersRepository {
     })
   }
 
-  update(input: Chapter, id: string): Promise<Chapter> {
+  async update(input: Chapter, id: string): Promise<Chapter> {
     return new Promise((resolve) => {
       const output = this.db.find((chapter) => chapter.id === id)
       output.updateTitle(input.title)
@@ -23,7 +23,7 @@ export class ChaptersInMemoryRepository implements IChaptersRepository {
     })
   }
 
-  delete(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     return new Promise((resolve) => {
       this.db.forEach((chapter, index) => {
         if (chapter.id === id) this.db.splice(index, 1)
@@ -32,13 +32,20 @@ export class ChaptersInMemoryRepository implements IChaptersRepository {
     })
   }
 
-  list(): Promise<Chapter[]> {
+  async list(): Promise<Chapter[]> {
     return new Promise((resolve) => resolve(this.db))
   }
 
-  getByTitle(title: string): Promise<Chapter> {
+  async getByTitle(title: string): Promise<Chapter> {
     return new Promise((resolve) => {
       const output = this.db.find((chapter) => chapter.title === title)
+      resolve(output)
+    })
+  }
+
+  async getById(id: string): Promise<Chapter> {
+    return new Promise((resolve) => {
+      const output = this.db.find((chapter) => chapter.id === id)
       resolve(output)
     })
   }
