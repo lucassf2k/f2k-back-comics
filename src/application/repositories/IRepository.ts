@@ -3,4 +3,5 @@ export interface IRepository<ENTITY, ID> {
   update(input: ENTITY, id: ID): Promise<ENTITY>
   delete(id: ID): Promise<void>
   list(): Promise<ENTITY[]>
+  getById(id: ID): Promise<ENTITY>
 }
