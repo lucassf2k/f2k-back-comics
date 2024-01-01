@@ -41,6 +41,10 @@ export class Chapter {
     this.props.coverPath = name
   }
 
+  updateTitle(value: string): void {
+    if (value) this.props.title = value
+  }
+
   private validateFilename(input: string): boolean {
     return REGEX_TO_VALIDATE_CHAPTER_NAME.test(input)
   }
