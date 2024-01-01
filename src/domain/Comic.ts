@@ -63,6 +63,18 @@ export class Comic {
     return this.props.genres
   }
 
+  updateName(value: string): void {
+    if (value) this.props.name = value
+  }
+
+  updateSynopsis(value: string): void {
+    if (value) this.props.synopsis = value
+  }
+
+  updateAuthorName(value: Name): void {
+    if (value) this.props.authorName = value
+  }
+
   private cocatenateFolderWithChapterName(): ChapterList[] {
     if (!this.props.path)
       throw new InvalidParameterError('comic directories were not created')

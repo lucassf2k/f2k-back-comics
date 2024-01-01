@@ -139,4 +139,14 @@ describe('Comic Test', () => {
     const allGenres = sut.listGenres()
     expect(allGenres.length).toBe(2)
   })
+
+  test('should update name, synopsis and authorName', async () => {
+    const sut = new Comic(comicProps)
+    sut.updateName('A Estrela que não brilha')
+    sut.updateSynopsis('Uma garota que vive..')
+    sut.updateAuthorName(new Name('Lucas Fernandes'))
+    expect(sut.name).toStrictEqual('A Estrela que não brilha')
+    expect(sut.synopsis).toStrictEqual('Uma garota que vive..')
+    expect(sut.authorName.value).toStrictEqual('Lucas Fernandes')
+  })
 })
