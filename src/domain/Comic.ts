@@ -1,9 +1,9 @@
 import { Name } from '@/domain/Name'
 import { Genre } from '@/domain/Genre'
 import { Chapter } from '@/domain/Chapter'
-import { InvalidParameterError } from './errors/InvalidParameterError'
-import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
+import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 import { UploadingService } from '@/infrastructure/services/UploadingService'
+import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 type ChapterList = {
   path: string
@@ -73,6 +73,14 @@ export class Comic {
 
   updateAuthorName(value: Name): void {
     if (value) this.props.authorName = value
+  }
+
+  updateCoverPath(path: string): void {
+    if (path) this.addComicCoverPath(path)
+  }
+
+  updatePath(path: string): void {
+    if (path) this.addComicPath(path)
   }
 
   private cocatenateFolderWithChapterName(): ChapterList[] {

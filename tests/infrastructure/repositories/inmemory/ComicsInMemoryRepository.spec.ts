@@ -1,0 +1,111 @@
+import { Name } from '@/domain/Name'
+import { Comic, ComicProps } from '@/domain/Comic'
+import { IComicsRepository } from '@/application/repositories/IComicsRepository'
+import { ComicsInMemoryRepository } from '@/infrastructure/repositories/inmemory/ComicsInMemoryRepository'
+import { Chapter } from '@/domain/Chapter'
+
+let comicsInMemoryRepository: IComicsRepository
+
+describe('ComicsInMemoryRepository Test', () => {
+  beforeEach(() => {
+    comicsInMemoryRepository = new ComicsInMemoryRepository()
+  })
+
+  test('should store a Comic', async () => {
+    const comicProps: ComicProps = {
+      name: 'Comic Test',
+      synopsis: 'Comic synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Test'),
+    }
+    const newComic = new Comic(comicProps)
+    await comicsInMemoryRepository.save(newComic)
+    const output = await comicsInMemoryRepository.list()
+    expect(output.length).toBe(1)
+  })
+
+  test('should list all Comics', async () => {
+    const comicProps: ComicProps = {
+      name: 'Comic Test',
+      synopsis: 'Comic synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Test'),
+    }
+    const newComic1 = new Comic(comicProps)
+    await comicsInMemoryRepository.save(newComic1)
+    const newComic2 = new Comic({
+      name: 'Comic2 Test',
+      synopsis: 'Comic2 synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Test'),
+    })
+    await comicsInMemoryRepository.save(newComic2)
+    const output = await comicsInMemoryRepository.list()
+    expect(output.length).toBe(2)
+  })
+
+  test('should delete a Comic', async () => {
+    const comicProps: ComicProps = {
+      name: 'Comic Test',
+      synopsis: 'Comic synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Test'),
+    }
+    const newComic1 = new Comic(comicProps)
+    await comicsInMemoryRepository.save(newComic1)
+    const newComic2 = new Comic({
+      name: 'Comic2 Test',
+      synopsis: 'Comic2 synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Test'),
+    })
+    await comicsInMemoryRepository.save(newComic2)
+    await comicsInMemoryRepository.delete(newComic1.id)
+    const output = await comicsInMemoryRepository.list()
+    expect(output.length).toBe(1)
+  })
+
+  test('should get by name Comic', async () => {
+    const comicProps: ComicProps = {
+      name: 'Comic Test',
+      synopsis: 'Comic synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Test'),
+    }
+    const newComic1 = new Comic(comicProps)
+    await comicsInMemoryRepository.save(newComic1)
+    const output = await comicsInMemoryRepository.getByName(newComic1.name)
+    expect(output.name).toStrictEqual(newComic1.name)
+    expect(output.id).toStrictEqual(newComic1.id)
+  })
+
+  test('should update a Comic', async () => {
+    const comicProps: ComicProps = {
+      name: 'Comic Test',
+      synopsis: 'Comic synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Test'),
+    }
+    const newComic1 = new Comic(comicProps)
+    await comicsInMemoryRepository.save(newComic1)
+    const comicToUpdate = new Comic({
+      name: 'Comic Updated',
+      synopsis: 'Comic synopsis test',
+      releaseDate: new Date(),
+      authorName: new Name('Name Updated'),
+    })
+    comicToUpdate.addChapter(
+      new Chapter({
+        number: '001',
+        title: 'Title Test',
+        releaseDate: new Date(),
+      }),
+    )
+    await comicsInMemoryRepository.update(comicToUpdate, newComic1.id)
+    const output = await comicsInMemoryRepository.getById(newComic1.id)
+    expect(output.id).toStrictEqual(newComic1.id)
+    expect(output.name).toStrictEqual(comicToUpdate.name)
+    expect(output.authorName).toStrictEqual(comicToUpdate.authorName)
+    expect(output.chapters.length).toBe(1)
+  })
+})
