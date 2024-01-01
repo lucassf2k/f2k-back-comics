@@ -1,10 +1,19 @@
 import { Name } from '@/domain/Name'
-import { Work } from '@/domain/Work'
+import { Work, WorkProps } from '@/domain/Work'
 import { Author, AuthorProps } from '@/domain/Author'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
-import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
+
+let workProps: WorkProps
 
 describe('Author Test', () => {
+  beforeEach(() => {
+    workProps = {
+      title: 'Crônicas nas Estrelas',
+      releaseDate: new Date(),
+      path: 'comic/asd/sad.pdf',
+    }
+  })
+
   test('should be create a author with name valid', () => {
     const authorProps: AuthorProps = {
       name: new Name('Test Name'),
@@ -37,9 +46,7 @@ describe('Author Test', () => {
       dateOfBirth: new Date(),
     }
     const sut = new Author(authorProps)
-    sut.addWork(
-      new Work('Crônicas nas Estrelas', new Date(), IdGenerateService.ULID()),
-    )
+    sut.addWork(new Work(workProps))
     expect(sut.works.length).toBe(1)
   })
 
@@ -60,16 +67,12 @@ describe('Author Test', () => {
       dateOfBirth: new Date(),
     }
     const sut = new Author(authorProps)
-    const work1 = new Work(
-      'A Estrela do Oeste',
-      new Date('2022-05-22T11:49:43.421Z'),
-      'comic/adads/asda.pdf',
-    )
-    const work2 = new Work(
-      'A Garota do C14',
-      new Date(),
-      'comic/adads/asda.pdf',
-    )
+    const work1 = new Work(workProps)
+    const work2 = new Work({
+      title: 'A Estrela do Norte',
+      releaseDate: new Date(),
+      path: 'comic/asd/sade.pdf',
+    })
     sut.addWork(work1)
     sut.addWork(work2)
     const allWorks = sut.listWorks()
