@@ -1,11 +1,7 @@
 import { Name } from '@/domain/Name'
 import { Author } from '@/domain/Author'
+import { IRepository } from './IRepository'
 
-export interface IAuthorsRepository {
-  save(author: Author): Promise<Author>
-  update(updatedAuthor: Author, id: string): Promise<Author>
-  list(): Promise<Author[]>
-  delete(id: string): Promise<void>
-  getById(id: string): Promise<Author>
+export interface IAuthorsRepository extends IRepository<Author, string> {
   getByName(name: Name): Promise<Author>
 }
