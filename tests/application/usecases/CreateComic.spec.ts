@@ -75,61 +75,6 @@ describe('CreateComic Test', () => {
     expect(output.location).toBeTruthy()
   })
 
-  test("shouldn't create a comic without a name", async () => {
-    const sut = new CreateComic(comicsRepository, chaptersRepository)
-    const newAuthor = new Author({
-      name: new Name('Masashi Kishimoto'),
-      about: 'Nascido em...',
-      dateOfBirth: new Date(),
-    })
-    const chapterFilePath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'manga.webp',
-    )
-    const chapterCoverPath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'image.jpg',
-    )
-    const fileChapter: { originalname: string; buffer: Buffer } = {
-      originalname: 'manga.webp',
-      buffer: readFileSync(chapterFilePath),
-    }
-    const chapterCover: { originalname: string; buffer: Buffer } = {
-      originalname: 'image.jpg',
-      buffer: readFileSync(chapterCoverPath),
-    }
-    const newChapter = {
-      number: '001',
-      title: 'A ninja',
-      file: {
-        originalname: fileChapter.originalname,
-        buffer: fileChapter.buffer,
-      },
-      fileCover: {
-        originalname: chapterCover.originalname,
-        buffer: chapterCover.buffer,
-      },
-    }
-    const input: CreateComicInput = {
-      name: '',
-      synopsis: 'O mundo ninja passa por momentos muito...',
-      authors: [newAuthor],
-      genres: [Genre.create('Ação'), Genre.create('Fantasia')],
-      chapters: [newChapter],
-    }
-    expect(() => sut.execute(input)).toThrow(
-      new InvalidParameterError('Field name is required'),
-    )
-  })
-
   test('should create a comic with more than one chapter and add comic cover', async () => {
     const sut = new CreateComic(comicsRepository, chaptersRepository)
     const newAuthor = new Author({

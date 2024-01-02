@@ -1,9 +1,6 @@
 import { Comic } from '@/domain/Comic'
 import { Chapter } from '@/domain/Chapter'
-import {
-  UploadingService,
-  UploadingServiceInput,
-} from '@/infrastructure/services/UploadingService'
+import { UploadingService } from '@/infrastructure/services/UploadingService'
 import {
   CreateComicInput,
   CreateComicOutPut,
@@ -50,47 +47,38 @@ export class CreateComic implements ICreateComic {
       UploadingService.createFile(newComic.coverPath, input.fileCover.buffer)
     }
     if (input.chapters) {
-      await this.populateChapters(input.chapters, releaseDate, newComic)
+      input.chapters.forEach(async (chapter) => {
+        const newChapter = new Chapter({
+          number: chapter.number,
+          title: chapter.title,
+          releaseDate,
+        })
+        if (chapter.fileCover) {
+          newChapter.addChapterCoverPath(
+            UploadingService.createFilename(chapter.fileCover.originalname),
+          )
+          const filePath = UploadingService.joinPaths(
+            newComic.path,
+            newChapter.coverPath,
+          )
+          UploadingService.createFile(filePath, chapter.fileCover.buffer)
+        }
+        if (chapter.file) {
+          newChapter.addChapterPath(
+            UploadingService.createFilename(chapter.file.originalname),
+          )
+          const filePath = UploadingService.joinPaths(
+            newComic.path,
+            newChapter.path,
+          )
+          UploadingService.createFile(filePath, chapter.file.buffer)
+        }
+        newComic.addChapter(newChapter)
+        await this.chaptersRepository.save(newChapter)
+      })
     }
     await this.comicsRepository.save(newComic)
     const location = `${AppEnvs.APP_DNS}/comics/${newComic.id}`
     return { location }
-  }
-
-  private async populateChapters(
-    chapters: {
-      number: string
-      title: string
-      fileCover?: UploadingServiceInput
-      file?: UploadingServiceInput
-    }[],
-    releaseDate: Date,
-    comic: Comic,
-  ): Promise<void> {
-    chapters.forEach(async (chapter) => {
-      const newChapter = new Chapter({
-        number: chapter.number,
-        title: chapter.title,
-        releaseDate,
-      })
-      if (chapter.fileCover) {
-        newChapter.addChapterCoverPath(
-          UploadingService.createFilename(chapter.fileCover.originalname),
-        )
-        const filePath = UploadingService.joinPaths(
-          comic.path,
-          newChapter.coverPath,
-        )
-        UploadingService.createFile(filePath, chapter.fileCover.buffer)
-      }
-      if (chapter.file) {
-        newChapter.addChapterPath(
-          UploadingService.createFilename(chapter.file.originalname),
-        )
-        const filePath = UploadingService.joinPaths(comic.path, newChapter.path)
-        UploadingService.createFile(filePath, chapter.file.buffer)
-      }
-      await this.chaptersRepository.save(newChapter)
-    })
   }
 }
