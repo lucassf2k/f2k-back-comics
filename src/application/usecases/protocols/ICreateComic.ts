@@ -1,11 +1,11 @@
-import { Name } from '@/domain/Name'
 import { Genre } from '@/domain/Genre'
 import { UploadingServiceInput } from '@/infrastructure/services/UploadingService'
+import { Author } from '@/domain/Author'
 
 export type CreateComicInput = {
   name: string
   synopsis: string
-  authorName: Name
+  authors: Author[]
   genres: Genre[]
   chapters?: {
     number: string
@@ -14,7 +14,6 @@ export type CreateComicInput = {
     file?: UploadingServiceInput
   }[]
   fileCover?: UploadingServiceInput
-  file?: UploadingServiceInput
 }
 export type CreateComicOutPut = {
   location: string
