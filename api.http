@@ -1,4 +1,4 @@
-# Genres
+### Genres
 
 GET http://localhost:3001/api/genres
 
@@ -9,3 +9,7 @@ content-type: application/json
 {
  "name": "Ação"
 }
+
+### Comics
+
+GET http://localhost:3001/api/comics
