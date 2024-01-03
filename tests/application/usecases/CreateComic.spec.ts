@@ -1,23 +1,44 @@
-import { CreateComic } from '@/application/usecases/CreateComic'
-import { IComicsRepository } from '../repositories/IComicsRepository'
-import { IChaptersRepository } from '../repositories/IChaptersRepository'
-import { ComicsInMemoryRepository } from '@/infrastructure/repositories/inmemory/ComicsInMemoryRepository'
-import { ChaptersInMemoryRepository } from '@/infrastructure/repositories/inmemory/ChaptersInMemoryRepository'
-import { CreateComicInput } from './protocols/ICreateComic'
-import { Author } from '@/domain/Author'
+import { resolve } from 'path'
+import { readFileSync } from 'fs'
 import { Name } from '@/domain/Name'
 import { Genre } from '@/domain/Genre'
-import { readFileSync } from 'fs'
-import { resolve } from 'path'
+import { Author } from '@/domain/Author'
+import { CreateComic } from '@/application/usecases/CreateComic'
+import { IComicsRepository } from '@/application/repositories/IComicsRepository'
+import { CreateComicInput } from '@/application/usecases/protocols/ICreateComic'
+import { IChaptersRepository } from '@/application/repositories/IChaptersRepository'
+import { ComicsInMemoryRepository } from '@/infrastructure/repositories/inmemory/ComicsInMemoryRepository'
+import { ChaptersInMemoryRepository } from '@/infrastructure/repositories/inmemory/ChaptersInMemoryRepository'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 let comicsRepository: IComicsRepository
 let chaptersRepository: IChaptersRepository
+let comicCoverPath: string
+let chapterPath: string
+let fileChapter: { originalname: string; buffer: Buffer }
+let comicCover: { originalname: string; buffer: Buffer }
 
 describe('CreateComic Test', () => {
   beforeEach(() => {
     comicsRepository = new ComicsInMemoryRepository()
     chaptersRepository = new ChaptersInMemoryRepository()
+    comicCoverPath = resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      'comics',
+      'cover.jpeg',
+    )
+    chapterPath = resolve(__dirname, '..', '..', '..', 'comics', 'manga.pdf')
+    fileChapter = {
+      originalname: 'manga.pdf',
+      buffer: readFileSync(chapterPath),
+    }
+    comicCover = {
+      originalname: 'image.jpeg',
+      buffer: readFileSync(comicCoverPath),
+    }
   })
 
   test('should create a comic', async () => {
@@ -27,30 +48,6 @@ describe('CreateComic Test', () => {
       about: 'Nascido em...',
       dateOfBirth: new Date(),
     })
-    const chapterFilePath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'manga.webp',
-    )
-    const chapterCoverPath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'image.jpg',
-    )
-    const fileChapter: { originalname: string; buffer: Buffer } = {
-      originalname: 'manga.webp',
-      buffer: readFileSync(chapterFilePath),
-    }
-    const chapterCover: { originalname: string; buffer: Buffer } = {
-      originalname: 'image.jpg',
-      buffer: readFileSync(chapterCoverPath),
-    }
     const newChapter = {
       number: '001',
       title: 'A ninja',
@@ -59,14 +56,14 @@ describe('CreateComic Test', () => {
         buffer: fileChapter.buffer,
       },
       fileCover: {
-        originalname: chapterCover.originalname,
-        buffer: chapterCover.buffer,
+        originalname: comicCover.originalname,
+        buffer: comicCover.buffer,
       },
     }
     const input: CreateComicInput = {
       name: 'Boruto',
       synopsis: 'O mundo ninja passa por momentos muito...',
-      authors: [newAuthor],
+      author: newAuthor,
       genres: [Genre.create('Ação'), Genre.create('Fantasia')],
       chapters: [newChapter],
     }
@@ -82,30 +79,6 @@ describe('CreateComic Test', () => {
       about: 'Nascido em...',
       dateOfBirth: new Date(),
     })
-    const chapterFilePath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'manga.webp',
-    )
-    const comicCoverPath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'image.jpg',
-    )
-    const fileChapter: { originalname: string; buffer: Buffer } = {
-      originalname: 'manga.webp',
-      buffer: readFileSync(chapterFilePath),
-    }
-    const comicCover: { originalname: string; buffer: Buffer } = {
-      originalname: 'image.jpg',
-      buffer: readFileSync(comicCoverPath),
-    }
     const newChapter1 = {
       number: '001',
       title: 'A ninja',
@@ -125,7 +98,7 @@ describe('CreateComic Test', () => {
     const input: CreateComicInput = {
       name: 'Boruto',
       synopsis: 'O mundo ninja passa por momentos muito...',
-      authors: [newAuthor],
+      author: newAuthor,
       genres: [Genre.create('Ação'), Genre.create('Fantasia')],
       chapters: [newChapter1, newChapter2],
       fileCover: {
@@ -145,22 +118,10 @@ describe('CreateComic Test', () => {
       about: 'Nascido em...',
       dateOfBirth: new Date(),
     })
-    const comicCoverPath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'image.jpg',
-    )
-    const comicCover: { originalname: string; buffer: Buffer } = {
-      originalname: 'image.jpg',
-      buffer: readFileSync(comicCoverPath),
-    }
     const input: CreateComicInput = {
       name: 'Name Comic',
       synopsis: 'O mundo ninja passa por momentos muito...',
-      authors: [newAuthor],
+      author: newAuthor,
       genres: [Genre.create('Ação'), Genre.create('Fantasia')],
       fileCover: {
         originalname: comicCover.originalname,
@@ -182,7 +143,7 @@ describe('CreateComic Test', () => {
     const input: CreateComicInput = {
       name: 'Name Comic',
       synopsis: 'O mundo ninja passa por momentos muito...',
-      authors: [newAuthor],
+      author: newAuthor,
       genres: [Genre.create('Ação'), Genre.create('Fantasia')],
     }
     const output = await sut.execute(input)
