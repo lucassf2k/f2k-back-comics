@@ -5,11 +5,11 @@ import {
   CreateComicOutPut,
   ICreateComic,
 } from '@/application/usecases/protocols/ICreateComic'
+import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 import { UploadingService } from '@/infrastructure/services/UploadingService'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
 import { IComicsRepository } from '@/application/repositories/IComicsRepository'
 import { IChaptersRepository } from '@/application/repositories/IChaptersRepository'
-import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 export class CreateComic implements ICreateComic {
   constructor(

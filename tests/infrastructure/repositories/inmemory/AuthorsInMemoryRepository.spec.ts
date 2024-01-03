@@ -1,7 +1,7 @@
+import { Name } from '@/domain/Name'
 import { Author, AuthorProps } from '@/domain/Author'
 import { IAuthorsRepository } from '@/application/repositories/IAuthorsRepository'
 import { AuthorsInMemoryRepository } from '@/infrastructure/repositories/inmemory/AuthorsInMemoryRepository'
-import { Name } from '@/domain/Name'
 
 let authorsRepository: IAuthorsRepository
 let authorProps: AuthorProps

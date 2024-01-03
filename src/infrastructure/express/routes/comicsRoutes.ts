@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express'
-import { CreateComicControllerFactory } from '@/infrastructure/express/factory/CreateComicControllerFactory'
 import { ComicsInMemoryRepository } from '@/infrastructure/repositories/inmemory/ComicsInMemoryRepository'
+import { ListComicsControllerFactory } from '@/infrastructure/express/factory/ListComicsControllerFactory'
+import { CreateComicControllerFactory } from '@/infrastructure/express/factory/CreateComicControllerFactory'
 import { ChaptersInMemoryRepository } from '@/infrastructure/repositories/inmemory/ChaptersInMemoryRepository'
-import { ListComicsControllerFactory } from '../factory/ListComicsControllerFactory'
 
 const comicsRoutes = Router()
 const comicsRepository = new ComicsInMemoryRepository()

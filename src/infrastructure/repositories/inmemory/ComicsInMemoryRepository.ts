@@ -1,5 +1,5 @@
-import { IComicsRepository } from '@/application/repositories/IComicsRepository'
 import { Comic } from '@/domain/Comic'
+import { IComicsRepository } from '@/application/repositories/IComicsRepository'
 
 export class ComicsInMemoryRepository implements IComicsRepository {
   private readonly db: Comic[]

@@ -1,8 +1,8 @@
 import { Name } from '@/domain/Name'
+import { Chapter } from '@/domain/Chapter'
 import { Comic, ComicProps } from '@/domain/Comic'
 import { IComicsRepository } from '@/application/repositories/IComicsRepository'
 import { ComicsInMemoryRepository } from '@/infrastructure/repositories/inmemory/ComicsInMemoryRepository'
-import { Chapter } from '@/domain/Chapter'
 
 let comicsInMemoryRepository: IComicsRepository
 

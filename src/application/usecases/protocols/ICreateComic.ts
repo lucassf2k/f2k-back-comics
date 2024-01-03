@@ -1,6 +1,6 @@
 import { Genre } from '@/domain/Genre'
-import { UploadingServiceInput } from '@/infrastructure/services/UploadingService'
 import { Author } from '@/domain/Author'
+import { UploadingServiceInput } from '@/infrastructure/services/UploadingService'
 
 export type CreateComicInput = {
   name: string

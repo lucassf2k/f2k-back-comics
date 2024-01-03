@@ -9,7 +9,6 @@ import { CreateComicInput } from '@/application/usecases/protocols/ICreateComic'
 import { IChaptersRepository } from '@/application/repositories/IChaptersRepository'
 import { ComicsInMemoryRepository } from '@/infrastructure/repositories/inmemory/ComicsInMemoryRepository'
 import { ChaptersInMemoryRepository } from '@/infrastructure/repositories/inmemory/ChaptersInMemoryRepository'
-import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 let comicsRepository: IComicsRepository
 let chaptersRepository: IChaptersRepository

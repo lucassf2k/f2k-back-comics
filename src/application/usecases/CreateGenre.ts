@@ -4,8 +4,8 @@ import {
   CreateGenreOutPut,
   ICreateGenre,
 } from '@/application/usecases/protocols/ICreateGenre'
-import { IGenresRepository } from '@/application/repositories/IGenresRepository'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
+import { IGenresRepository } from '@/application/repositories/IGenresRepository'
 
 export class CreateGenre implements ICreateGenre {
   constructor(private readonly GenresRepository: IGenresRepository) {}

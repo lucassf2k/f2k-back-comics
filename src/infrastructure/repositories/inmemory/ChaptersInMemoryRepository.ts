@@ -1,5 +1,5 @@
-import { IChaptersRepository } from '@/application/repositories/IChaptersRepository'
 import { Chapter } from '@/domain/Chapter'
+import { IChaptersRepository } from '@/application/repositories/IChaptersRepository'
 
 export class ChaptersInMemoryRepository implements IChaptersRepository {
   private readonly db: Chapter[]

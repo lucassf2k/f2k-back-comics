@@ -1,9 +1,9 @@
+import type { Request, Response } from 'express'
 import {
   CreateComicInput,
   ICreateComic,
 } from '@/application/usecases/protocols/ICreateComic'
-import type { Request, Response } from 'express'
-import { errorHandler } from '../middlewares/errorHandler'
+import { errorHandler } from '@/infrastructure/express/middlewares/errorHandler'
 
 export class CreateComicController {
   constructor(private readonly createComic: ICreateComic) {}

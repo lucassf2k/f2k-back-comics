@@ -2,7 +2,7 @@ import express from 'express'
 import { routes } from '@/infrastructure/express/routes'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
 import { errorHandler } from '@/infrastructure/express/middlewares/errorHandler'
-import { staticFilesConfigurations } from './middlewares/staticFilesConfigurations'
+import { staticFilesConfigurations } from '@/infrastructure/express/middlewares/staticFilesConfigurations'
 
 export function expressApplication(): void {
   const app = express()
