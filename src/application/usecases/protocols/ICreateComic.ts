@@ -5,12 +5,11 @@ import { Author } from '@/domain/Author'
 export type CreateComicInput = {
   name: string
   synopsis: string
-  authors: Author[]
+  author: Author
   genres: Genre[]
   chapters?: {
     number: string
     title: string
-    fileCover?: UploadingServiceInput
     file?: UploadingServiceInput
   }[]
   fileCover?: UploadingServiceInput

@@ -1,11 +1,11 @@
 import { Comic } from '@/domain/Comic'
 import { Chapter } from '@/domain/Chapter'
-import { UploadingService } from '@/infrastructure/services/UploadingService'
 import {
   CreateComicInput,
   CreateComicOutPut,
   ICreateComic,
 } from '@/application/usecases/protocols/ICreateComic'
+import { UploadingService } from '@/infrastructure/services/UploadingService'
 import { AppEnvs } from '@/infrastructure/configurations/environments/AppEnvs'
 import { IComicsRepository } from '@/application/repositories/IComicsRepository'
 import { IChaptersRepository } from '@/application/repositories/IChaptersRepository'
@@ -25,14 +25,14 @@ export class CreateComic implements ICreateComic {
     if (input.genres.length === 0) {
       throw new InvalidParameterError('Field genders is required')
     }
-    if (input.authors.length === 0) {
+    if (!input.author) {
       throw new InvalidParameterError('Field authors is required')
     }
     const releaseDate = new Date()
     const newComic = new Comic({
       name: input.name,
       synopsis: input.synopsis,
-      authorName: input.authors.map((author) => author.name),
+      authorName: input.author.name,
       releaseDate,
     })
     input.genres.forEach((genre) => newComic.addGenre(genre))
@@ -53,16 +53,6 @@ export class CreateComic implements ICreateComic {
           title: chapter.title,
           releaseDate,
         })
-        if (chapter.fileCover) {
-          newChapter.addChapterCoverPath(
-            UploadingService.createFilename(chapter.fileCover.originalname),
-          )
-          const filePath = UploadingService.joinPaths(
-            newComic.path,
-            newChapter.coverPath,
-          )
-          UploadingService.createFile(filePath, chapter.fileCover.buffer)
-        }
         if (chapter.file) {
           newChapter.addChapterPath(
             UploadingService.createFilename(chapter.file.originalname),

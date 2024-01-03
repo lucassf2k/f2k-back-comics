@@ -14,7 +14,7 @@ export type ComicProps = {
   name: string
   synopsis: string
   releaseDate: Date
-  authorName: Name[]
+  authorName: Name
   chapters?: Chapter[]
   genres?: Genre[]
   path?: string
@@ -71,10 +71,8 @@ export class Comic {
     if (value) this.props.synopsis = value
   }
 
-  updateAuthorName(value: Name[]): void {
-    for (const authorName of value) {
-      this.props.authorName.push(authorName)
-    }
+  updateAuthorName(value: Name): void {
+    if (value.value) this.props.authorName = value
   }
 
   updateCoverPath(path: string): void {
@@ -112,7 +110,7 @@ export class Comic {
     return this.props.releaseDate
   }
 
-  get authorName(): Name[] {
+  get authorName(): Name {
     return this.props.authorName
   }
 

@@ -6,7 +6,6 @@ export type ChapterProps = {
   number: string
   title: string
   releaseDate: Date
-  coverPath?: string
   path?: string
 }
 
@@ -20,8 +19,7 @@ export class Chapter {
     if (!this._id) this._id = IdGenerateService.ULID()
     this.props = {
       ...props,
-      coverPath: props.coverPath || '',
-      path: props.coverPath || '',
+      path: props.path || '',
     }
   }
 
@@ -31,14 +29,6 @@ export class Chapter {
       throw new InvalidParameterError('Invalid file name')
     }
     this.props.path = name
-  }
-
-  addChapterCoverPath(name: string): void {
-    if (!name) throw new InvalidParameterError('Name not be empty')
-    if (!this.validateFilename(name)) {
-      throw new InvalidParameterError('Invalid cover name')
-    }
-    this.props.coverPath = name
   }
 
   updateTitle(value: string): void {
@@ -59,10 +49,6 @@ export class Chapter {
 
   get releaseDate(): Date {
     return this.props.releaseDate
-  }
-
-  get coverPath(): string {
-    return this.props.coverPath
   }
 
   get path(): string {

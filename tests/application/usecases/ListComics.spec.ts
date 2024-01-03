@@ -13,11 +13,32 @@ import { ChaptersInMemoryRepository } from '@/infrastructure/repositories/inmemo
 
 let comicsRepository: IComicsRepository
 let chaptersRepository: IChaptersRepository
+let chapterPath: string
+let comicCoverPath: string
+let fileChapter: { originalname: string; buffer: Buffer }
+let comicCover: { originalname: string; buffer: Buffer }
 
 describe('ListComics Test', () => {
   beforeEach(() => {
     comicsRepository = new ComicsInMemoryRepository()
     chaptersRepository = new ChaptersInMemoryRepository()
+    chapterPath = resolve(__dirname, '..', '..', '..', 'comics', 'manga.pdf')
+    comicCoverPath = resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      'comics',
+      'cover.jpeg',
+    )
+    fileChapter = {
+      originalname: 'manga.pdf',
+      buffer: readFileSync(chapterPath),
+    }
+    comicCover = {
+      originalname: 'cover.jpeg',
+      buffer: readFileSync(comicCoverPath),
+    }
   })
 
   test('should list all comics', async () => {
@@ -27,30 +48,6 @@ describe('ListComics Test', () => {
       about: 'Nascido em...',
       dateOfBirth: new Date(),
     })
-    const chapterFilePath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'manga.webp',
-    )
-    const comicCoverPath = resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'comics',
-      'image.jpg',
-    )
-    const fileChapter: { originalname: string; buffer: Buffer } = {
-      originalname: 'manga.webp',
-      buffer: readFileSync(chapterFilePath),
-    }
-    const comicCover: { originalname: string; buffer: Buffer } = {
-      originalname: 'image.jpg',
-      buffer: readFileSync(comicCoverPath),
-    }
     const newChapter1 = {
       number: '001',
       title: 'A ninja',
@@ -70,7 +67,7 @@ describe('ListComics Test', () => {
     const input: CreateComicInput = {
       name: 'Name Comic',
       synopsis: 'O mundo ninja passa por momentos muito...',
-      authors: [newAuthor],
+      author: newAuthor,
       genres: [Genre.create('Ação'), Genre.create('Fantasia')],
       chapters: [newChapter1, newChapter2],
       fileCover: {

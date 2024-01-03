@@ -5,6 +5,8 @@ import { UploadingService } from '@/infrastructure/services/UploadingService'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 
 let chapterProps: ChapterProps
+let filePath: string
+let file: { originalname: string; buffer: Buffer }
 
 describe('Chapter Test', () => {
   beforeEach(() => {
@@ -13,6 +15,11 @@ describe('Chapter Test', () => {
       title: 'Floresta no cêu',
       releaseDate: new Date(),
     }
+    filePath = resolve(__dirname, '..', '..', 'comics', 'manga.pdf')
+    file = {
+      originalname: 'manga.pdf',
+      buffer: readFileSync(filePath),
+    }
   })
 
   test('should be create a chapter', () => {
@@ -20,14 +27,12 @@ describe('Chapter Test', () => {
       number: '011',
       title: 'A volta',
       releaseDate: new Date(),
-      coverPath: 'asdasdd.jpg',
       path: 'sdasdasd.pdf',
     })
     expect(sut).toHaveProperty('_id')
     expect(sut).toHaveProperty('number')
     expect(sut).toHaveProperty('title')
     expect(sut).toHaveProperty('releaseDate')
-    expect(sut).toHaveProperty('coverPath')
     expect(sut).toHaveProperty('path')
   })
 
@@ -41,57 +46,20 @@ describe('Chapter Test', () => {
 
   test('should add cover and content urls', () => {
     const sut = new Chapter(chapterProps)
-    sut.addChapterCoverPath('sdadad.jpg')
     sut.addChapterPath('sdadad.pdf')
-    expect(sut.coverPath).toBe('sdadad.jpg')
     expect(sut.path).toBe('sdadad.pdf')
   })
 
-  test('should add file path', async () => {
+  test('should add file path', () => {
     const sut = new Chapter(chapterProps)
-    const filePath = resolve(__dirname, '..', '..', 'comics', '6-2.pdf')
-    const file: { originalname: string; buffer: Buffer } = {
-      originalname: 'vamoslá.pdf',
-      buffer: readFileSync(filePath),
-    }
     sut.addChapterPath(UploadingService.createFilename(file.originalname))
     expect(sut.path).toBeTruthy()
   })
 
-  test('should not add file path', async () => {
+  test('should not add file path', () => {
     const sut = new Chapter(chapterProps)
-    const filePath = resolve(__dirname, '..', '..', 'comics', '6-2.pdf')
-    const file: { originalname: string; buffer: Buffer } = {
-      originalname: 'vamoslá',
-      buffer: readFileSync(filePath),
-    }
     expect(() =>
-      sut.addChapterPath(UploadingService.createFilename(file.originalname)),
+      sut.addChapterPath(UploadingService.createFilename('')),
     ).toThrow(new InvalidParameterError('Invalid file name'))
-  })
-
-  test('should add cover name', async () => {
-    const sut = new Chapter(chapterProps)
-    const filePath = resolve(__dirname, '..', '..', 'comics', 'touka.jpg')
-    const file: { originalname: string; buffer: Buffer } = {
-      originalname: 'touka.jpg',
-      buffer: readFileSync(filePath),
-    }
-    sut.addChapterCoverPath(UploadingService.createFilename(file.originalname))
-    expect(sut.coverPath).toBeTruthy()
-  })
-
-  test('should not add cover path', async () => {
-    const sut = new Chapter(chapterProps)
-    const filePath = resolve(__dirname, '..', '..', 'comics', 'touka.jpg')
-    const file: { originalname: string; buffer: Buffer } = {
-      originalname: 'touka',
-      buffer: readFileSync(filePath),
-    }
-    expect(() =>
-      sut.addChapterCoverPath(
-        UploadingService.createFilename(file.originalname),
-      ),
-    ).toThrow(new InvalidParameterError('Invalid cover name'))
   })
 })
