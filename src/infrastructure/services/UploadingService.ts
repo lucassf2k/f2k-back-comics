@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
+import { randomBytes } from 'node:crypto'
 import { extname, join } from 'node:path'
 import { createWriteStream, mkdirSync, rmSync } from 'node:fs'
-import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 export type UploadingServiceInput = {
   originalname: string
@@ -20,11 +20,11 @@ export class UploadingService {
 
   static createFilename(filename: string): string {
     const fileExtension = extname(filename)
-    return `${IdGenerateService.ULID()}${fileExtension}`
+    return `${this.createRandomNames()}${fileExtension}`
   }
 
   static createDirectory(): string {
-    const directoryName = `${IdGenerateService.ULID()}`
+    const directoryName = `${this.createRandomNames()}`
     return mkdirSync(
       join(__dirname, '..', '..', '..', `${BASE_PATH}`, `${directoryName}`),
       { recursive: true },
@@ -37,5 +37,9 @@ export class UploadingService {
 
   static removeDirectory(path: string): void {
     rmSync(path, { recursive: true })
+  }
+
+  static createRandomNames(): string {
+    return randomBytes(8).toString('hex')
   }
 }
