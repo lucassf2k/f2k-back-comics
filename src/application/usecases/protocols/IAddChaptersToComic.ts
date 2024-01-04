@@ -5,7 +5,6 @@ export type AddChaptersToComicInput = {
   chapters: {
     number: string
     title: string
-    fileCover: UploadingServiceInput
     file: UploadingServiceInput
   }[]
 }
