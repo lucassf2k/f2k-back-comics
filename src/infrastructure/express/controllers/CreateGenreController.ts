@@ -3,7 +3,6 @@ import {
   CreateGenreInput,
   ICreateGenre,
 } from '@/application/usecases/protocols/ICreateGenre'
-import { HttpStatusCodes } from '@/application/enums/HttpStatusCodes'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 import { errorHandler } from '@/infrastructure/express/middlewares/errorHandler'
 
@@ -15,9 +14,7 @@ export class CreateGenreController {
       const input: CreateGenreInput = request.body
       if (!input.name) throw new InvalidParameterError('Name field is required')
       const { url } = await this.createGenre.execute(input)
-      return response
-        .setHeader('location', url)
-        .sendStatus(HttpStatusCodes.CREATED)
+      return response.location(url)
     } catch (error) {
       errorHandler(error, request, response)
     }
