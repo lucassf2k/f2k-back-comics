@@ -62,4 +62,12 @@ describe('Chapter Test', () => {
       sut.addChapterPath(UploadingService.createFilename('')),
     ).toThrow(new InvalidParameterError('Invalid file name'))
   })
+
+  test('should not add file path if name empty', () => {
+    const sut = new Chapter(chapterProps)
+
+    expect(() => sut.addChapterPath('')).toThrow(
+      new InvalidParameterError('Name not be empty'),
+    )
+  })
 })
