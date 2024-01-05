@@ -4,12 +4,14 @@ import {
   IGetComicOfId,
 } from '@/application/usecases/protocols/IGetComicOfId'
 import { IComicsRepository } from '@/application/repositories/IComicsRepository'
+import { NotFoundError } from '@/domain/errors/NotFoundError'
 
 export class GetComicOfId implements IGetComicOfId {
   constructor(private readonly comicsRepository: IComicsRepository) {}
 
   async execute(input: GetComicOfIdInput): Promise<GetComicOfIdOutPut> {
     const output = await this.comicsRepository.getById(input.id)
+    if (!output) throw new NotFoundError()
     return {
       id: output.id,
       name: output.name,
