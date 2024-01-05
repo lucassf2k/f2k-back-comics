@@ -74,9 +74,8 @@ describe('ComicsInMemoryRepository Test', () => {
     }
     const newComic1 = new Comic(comicProps)
     await comicsInMemoryRepository.save(newComic1)
-    const output = await comicsInMemoryRepository.getByName(newComic1.name)
-    expect(output.name).toStrictEqual(newComic1.name)
-    expect(output.id).toStrictEqual(newComic1.id)
+    const output = await comicsInMemoryRepository.searchByName(newComic1.name)
+    expect(output.length).toBe(1)
   })
 
   test('should update a Comic', async () => {

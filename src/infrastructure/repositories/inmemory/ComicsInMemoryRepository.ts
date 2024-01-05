@@ -50,9 +50,11 @@ export class ComicsInMemoryRepository implements IComicsRepository {
     )
   }
 
-  async getByName(name: string): Promise<Comic> {
-    return new Promise((resolve) =>
-      resolve(this.db.find((comic) => comic.name === name)),
-    )
+  async searchByName(name: string): Promise<Comic[]> {
+    const regexToSearch = new RegExp(`.*${name}.*`)
+    return new Promise((resolve) => {
+      const output = this.db.filter((comic) => regexToSearch.test(comic.name))
+      resolve(output)
+    })
   }
 }

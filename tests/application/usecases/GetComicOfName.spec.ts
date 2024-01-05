@@ -1,7 +1,6 @@
 import { Name } from '@/domain/Name'
 import { Genre } from '@/domain/Genre'
 import { Author } from '@/domain/Author'
-import { NotFoundError } from '@/domain/errors/NotFoundError'
 import { CreateComic } from '@/application/usecases/CreateComic'
 import { GetComicOfName } from '@/application/usecases/GetComicOfName'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
@@ -34,14 +33,10 @@ describe('GetComicOfName Test', () => {
     const createComic = new CreateComic(comicsRepository, chaptersRepository)
     await createComic.execute(input)
     const sut = new GetComicOfName(comicsRepository)
-    const { id, name, cover, releaseDate, synopsis } = await sut.execute({
+    const output = await sut.execute({
       name: input.name,
     })
-    expect(id).toBeTruthy()
-    expect(cover).toBeFalsy()
-    expect(releaseDate).toBeTruthy()
-    expect(name).toStrictEqual(input.name)
-    expect(synopsis).toStrictEqual(input.synopsis)
+    expect(output.length).toBe(1)
   })
 
   test('should return a throw InvalidParameterError when name is empty', async () => {
@@ -59,24 +54,6 @@ describe('GetComicOfName Test', () => {
     const sut = new GetComicOfName(comicsRepository)
     expect(() => sut.execute({ name: input.name })).rejects.toThrow(
       new InvalidParameterError('Field name is required'),
-    )
-  })
-
-  test('should return a throw NotFound if comic not exists', async () => {
-    const newAuthor = new Author({
-      name: new Name('Masashi Kishimoto'),
-      about: 'Nascido em...',
-      dateOfBirth: new Date(),
-    })
-    const input: CreateComicInput = {
-      name: 'Boruto',
-      synopsis: 'O mundo ninja passa por momentos muito...',
-      author: newAuthor,
-      genres: [Genre.create('Ação'), Genre.create('Fantasia')],
-    }
-    const sut = new GetComicOfName(comicsRepository)
-    expect(() => sut.execute({ name: input.name })).rejects.toThrow(
-      new NotFoundError(),
     )
   })
 })
