@@ -25,7 +25,7 @@ export class CreateComic implements ICreateComic {
     if (input.genres.length === 0) {
       throw new InvalidParameterError('Field genders is required')
     }
-    if (!input.author) {
+    if (!input.author.name) {
       throw new InvalidParameterError('Field authors is required')
     }
     const releaseDate = new Date()
@@ -68,7 +68,7 @@ export class CreateComic implements ICreateComic {
       })
     }
     await this.comicsRepository.save(newComic)
-    const location = `${AppEnvs.APP_DNS}/comics/${newComic.id}`
+    const location = `comics/${newComic.id}`
     return { location }
   }
 }

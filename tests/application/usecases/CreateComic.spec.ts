@@ -4,6 +4,7 @@ import { Name } from '@/domain/Name'
 import { Genre } from '@/domain/Genre'
 import { Author } from '@/domain/Author'
 import { CreateComic } from '@/application/usecases/CreateComic'
+import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
 import { IComicsRepository } from '@/application/repositories/IComicsRepository'
 import { CreateComicInput } from '@/application/usecases/protocols/ICreateComic'
 import { IChaptersRepository } from '@/application/repositories/IChaptersRepository'
@@ -148,5 +149,124 @@ describe('CreateComic Test', () => {
     const output = await sut.execute(input)
     expect(output.location).toBeTruthy()
     expect(output).toHaveProperty('location')
+  })
+
+  test('should throw an InvalidParameterError if name is empty', async () => {
+    const sut = new CreateComic(comicsRepository, chaptersRepository)
+    const newAuthor = new Author({
+      name: new Name('Masashi Kishimoto'),
+      about: 'Nascido em...',
+      dateOfBirth: new Date(),
+    })
+    const newChapter = {
+      number: '001',
+      title: 'A ninja',
+      file: {
+        originalname: fileChapter.originalname,
+        buffer: fileChapter.buffer,
+      },
+      fileCover: {
+        originalname: comicCover.originalname,
+        buffer: comicCover.buffer,
+      },
+    }
+    const input: CreateComicInput = {
+      name: '',
+      synopsis: 'O mundo ninja passa por momentos muito...',
+      author: newAuthor,
+      genres: [Genre.create('Ação'), Genre.create('Fantasia')],
+      chapters: [newChapter],
+    }
+    expect(() => sut.execute(input)).rejects.toThrow(
+      new InvalidParameterError('Field name is required'),
+    )
+  })
+
+  test('should throw an InvalidParameterError if synopsis is empty', async () => {
+    const sut = new CreateComic(comicsRepository, chaptersRepository)
+    const newAuthor = new Author({
+      name: new Name('Masashi Kishimoto'),
+      about: 'Nascido em...',
+      dateOfBirth: new Date(),
+    })
+    const newChapter = {
+      number: '001',
+      title: 'A ninja',
+      file: {
+        originalname: fileChapter.originalname,
+        buffer: fileChapter.buffer,
+      },
+      fileCover: {
+        originalname: comicCover.originalname,
+        buffer: comicCover.buffer,
+      },
+    }
+    const input: CreateComicInput = {
+      name: 'Name Test',
+      synopsis: '',
+      author: newAuthor,
+      genres: [Genre.create('Ação'), Genre.create('Fantasia')],
+      chapters: [newChapter],
+    }
+    expect(() => sut.execute(input)).rejects.toThrow(
+      new InvalidParameterError('Field synopsis is required'),
+    )
+  })
+
+  test('should throw an InvalidParameterError if genders is empty', async () => {
+    const sut = new CreateComic(comicsRepository, chaptersRepository)
+    const newAuthor = new Author({
+      name: new Name('Masashi Kishimoto'),
+      about: 'Nascido em...',
+      dateOfBirth: new Date(),
+    })
+    const newChapter = {
+      number: '001',
+      title: 'A ninja',
+      file: {
+        originalname: fileChapter.originalname,
+        buffer: fileChapter.buffer,
+      },
+      fileCover: {
+        originalname: comicCover.originalname,
+        buffer: comicCover.buffer,
+      },
+    }
+    const input: CreateComicInput = {
+      name: 'Name Test',
+      synopsis: 'Synopsis Test',
+      author: newAuthor,
+      genres: [],
+      chapters: [newChapter],
+    }
+    expect(() => sut.execute(input)).rejects.toThrow(
+      new InvalidParameterError('Field genders is required'),
+    )
+  })
+
+  test('should throw an InvalidParameterError if author is empty', async () => {
+    const sut = new CreateComic(comicsRepository, chaptersRepository)
+    const newChapter = {
+      number: '001',
+      title: 'A ninja',
+      file: {
+        originalname: fileChapter.originalname,
+        buffer: fileChapter.buffer,
+      },
+      fileCover: {
+        originalname: comicCover.originalname,
+        buffer: comicCover.buffer,
+      },
+    }
+    const input: CreateComicInput = {
+      name: 'Name Test',
+      synopsis: 'Synopsis Test',
+      author: {} as Author,
+      genres: [Genre.create('Ação'), Genre.create('Fantasia')],
+      chapters: [newChapter],
+    }
+    expect(() => sut.execute(input)).rejects.toThrow(
+      new InvalidParameterError('Field authors is required'),
+    )
   })
 })
