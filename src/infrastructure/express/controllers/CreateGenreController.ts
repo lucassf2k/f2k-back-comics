@@ -14,7 +14,7 @@ export class CreateGenreController {
       const input: CreateGenreInput = request.body
       if (!input.name) throw new InvalidParameterError('Name field is required')
       const { url } = await this.createGenre.execute(input)
-      return response.location(url)
+      return response.location(url).send()
     } catch (error) {
       errorHandler(error, request, response)
     }

@@ -12,7 +12,7 @@ export class CreateComicController {
     try {
       const input: CreateComicInput = request.body
       const output = await this.createComic.execute(input)
-      return response.location(output.location)
+      return response.location(output.location).send()
     } catch (error) {
       errorHandler(error, request, response)
     }
