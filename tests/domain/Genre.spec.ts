@@ -1,5 +1,6 @@
 import { Genre } from '@/domain/Genre'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
+import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 describe('Genre Test', () => {
   test('should be create a new Genre', () => {
@@ -25,5 +26,12 @@ describe('Genre Test', () => {
         `The property name cannot contain special symbols or numbers`,
       ),
     )
+  })
+
+  test('You should restore a Genre', () => {
+    const sut = Genre.restore(IdGenerateService.ULID(), 'Fantasia', new Date())
+    expect(sut.id).toBeTruthy()
+    expect(sut.name).toBeTruthy()
+    expect(sut.createdAt).toBeTruthy()
   })
 })
