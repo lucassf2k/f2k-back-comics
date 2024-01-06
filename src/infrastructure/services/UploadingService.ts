@@ -8,7 +8,7 @@ export type UploadingServiceInput = {
   buffer: Buffer
 }
 
-const BASE_PATH = 'comics'
+const BASE_PATH = './comics'
 
 export class UploadingService {
   static createFile(filePath: string, buffer: Buffer): string {
@@ -25,10 +25,9 @@ export class UploadingService {
 
   static createDirectory(): string {
     const directoryName = `${this.createRandomNames()}`
-    return mkdirSync(
-      join(__dirname, '..', '..', '..', `${BASE_PATH}`, `${directoryName}`),
-      { recursive: true },
-    )
+    return mkdirSync(join(`${BASE_PATH}`, `${directoryName}`), {
+      recursive: true,
+    })
   }
 
   static joinPaths(path1: string, path2: string): string {

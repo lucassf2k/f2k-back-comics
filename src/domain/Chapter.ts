@@ -9,8 +9,6 @@ export type ChapterProps = {
   path?: string
 }
 
-const REGEX_TO_VALIDATE_CHAPTER_NAME = /^[^.\/][^\/]+(\.[^\/.]+)+$/
-
 export class Chapter {
   private readonly _id: string
   private readonly props: Required<ChapterProps>
@@ -25,18 +23,11 @@ export class Chapter {
 
   addChapterPath(name: string): void {
     if (!name) throw new InvalidParameterError('Name not be empty')
-    if (!this.validateFilename(name)) {
-      throw new InvalidParameterError('Invalid file name')
-    }
     this.props.path = name
   }
 
   updateTitle(value: string): void {
     if (value) this.props.title = value
-  }
-
-  private validateFilename(input: string): boolean {
-    return REGEX_TO_VALIDATE_CHAPTER_NAME.test(input)
   }
 
   get number(): string {

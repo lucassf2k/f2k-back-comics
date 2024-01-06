@@ -11,7 +11,11 @@ content-type: application/json
 }
 
 ### Comics
+GET http://localhost:3001/api/comics
+
+###
 GET http://localhost:3001/api/comics/search/?name=asdasd
 
 ###
 GET http://localhost:3001/api/comics/asdasdsad
+

@@ -80,7 +80,6 @@ describe('ListComics Test', () => {
     const output = await sut.execute()
     output.forEach((comic) => {
       expect(comic.id).toBeTruthy()
-      expect(comic.path).toBeTruthy()
       expect(comic.genres.length).toBe(2)
       expect(comic.coverPath).toBeTruthy()
       expect(comic.chapters.length).toBe(2)

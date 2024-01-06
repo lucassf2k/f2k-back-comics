@@ -37,14 +37,16 @@ export class CreateComic implements ICreateComic {
     })
     input.genres.forEach((genre) => newComic.addGenre(genre))
     newComic.addComicPath(UploadingService.createDirectory())
+    const [_, comicPath] = newComic.path.split('/')
     if (input.fileCover) {
       const coverName = UploadingService.createFilename(
         input.fileCover.originalname,
       )
       newComic.addComicCoverPath(
-        UploadingService.joinPaths(newComic.path, coverName),
+        UploadingService.joinPaths(comicPath, coverName),
       )
-      UploadingService.createFile(newComic.coverPath, input.fileCover.buffer)
+      const fullCoverPath = UploadingService.joinPaths(newComic.path, coverName)
+      UploadingService.createFile(fullCoverPath, input.fileCover.buffer)
     }
     if (input.chapters) {
       input.chapters.forEach(async (chapter) => {
@@ -54,12 +56,15 @@ export class CreateComic implements ICreateComic {
           releaseDate,
         })
         if (chapter.file) {
+          const chapterName = UploadingService.createFilename(
+            chapter.file.originalname,
+          )
           newChapter.addChapterPath(
-            UploadingService.createFilename(chapter.file.originalname),
+            UploadingService.joinPaths(comicPath, chapterName),
           )
           const filePath = UploadingService.joinPaths(
             newComic.path,
-            newChapter.path,
+            chapterName,
           )
           UploadingService.createFile(filePath, chapter.file.buffer)
         }

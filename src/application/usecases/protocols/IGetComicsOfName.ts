@@ -6,7 +6,7 @@ export type GetComicsOfNameOutPut = {
   name: string
   synopsis: string
   releaseDate: Date
-  cover: string
+  coverPath: string
 }[]
 export interface IGetComicsOfName {
   execute(input: GetComicsOfNameInput): Promise<GetComicsOfNameOutPut>

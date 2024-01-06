@@ -18,7 +18,7 @@ export class GetComicOfName implements IGetComicsOfName {
         name: item.name,
         synopsis: item.synopsis,
         releaseDate: item.releaseDate,
-        cover: item.coverPath,
+        coverPath: item.coverPath,
       }
     }) as GetComicsOfNameOutPut
   }
