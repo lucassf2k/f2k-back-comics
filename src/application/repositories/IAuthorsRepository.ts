@@ -3,5 +3,5 @@ import { Author } from '@/domain/Author'
 import { IRepository } from '@/application/repositories/IRepository'
 
 export interface IAuthorsRepository extends IRepository<Author, string> {
-  getByName(name: Name): Promise<Author>
+  getOfName(name: Name): Promise<Author>
 }

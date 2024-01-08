@@ -38,7 +38,7 @@ describe('AuthorInMemoryRepository Test', () => {
       dateOfBirth: new Date('1985-12-02'),
     })
     await authorsRepository.update(updateAuthor, author.id)
-    const output = await authorsRepository.getById(author.id)
+    const output = await authorsRepository.getOfId(author.id)
     expect(output.name.value).not.toBe(new Name('Fulano test').value)
     expect(output.about).not.toBe('Lorem Ipsum')
     expect(output.dateOfBirth.getTime()).toBe(new Date('1985-12-02').getTime())
@@ -47,14 +47,14 @@ describe('AuthorInMemoryRepository Test', () => {
   test('should be get author by id', async () => {
     const author1 = new Author(authorProps)
     const savedAuthor = await authorsRepository.save(author1)
-    const output = await authorsRepository.getById(savedAuthor.id)
+    const output = await authorsRepository.getOfId(savedAuthor.id)
     expect(output.name.value).toBe(author1.name.value)
   })
 
   test('should be get author by name', async () => {
     const author2 = new Author(authorProps)
     const savedAuthor = await authorsRepository.save(author2)
-    const output = await authorsRepository.getByName(savedAuthor.name)
+    const output = await authorsRepository.getOfName(savedAuthor.name)
     expect(output.name.value).toBe(author2.name.value)
   })
 

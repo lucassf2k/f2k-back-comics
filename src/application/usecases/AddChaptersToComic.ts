@@ -18,7 +18,7 @@ export class AddChaptersToComic implements IAddChaptersToComic {
     input: AddChaptersToComicInput,
   ): Promise<AddChaptersToComicOutPut> {
     const releaseDate = new Date()
-    const comic = await this.comicsRepository.getById(input.idComic)
+    const comic = await this.comicsRepository.getOfId(input.idComic)
     const [, comicPath] = comic.path.split('/')
     const chapters = input.chapters.map((chapter) => {
       const chapterName = UploadingService.createFilename(

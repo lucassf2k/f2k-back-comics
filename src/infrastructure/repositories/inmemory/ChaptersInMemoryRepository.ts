@@ -36,14 +36,14 @@ export class ChaptersInMemoryRepository implements IChaptersRepository {
     return new Promise((resolve) => resolve(this.db))
   }
 
-  async getByTitle(title: string): Promise<Chapter> {
+  async getOfTitle(title: string): Promise<Chapter> {
     return new Promise((resolve) => {
       const output = this.db.find((chapter) => chapter.title === title)
       resolve(output)
     })
   }
 
-  async getById(id: string): Promise<Chapter> {
+  async getOfId(id: string): Promise<Chapter> {
     return new Promise((resolve) => {
       const output = this.db.find((chapter) => chapter.id === id)
       resolve(output)

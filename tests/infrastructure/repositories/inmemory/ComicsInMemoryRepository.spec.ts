@@ -101,7 +101,7 @@ describe('ComicsInMemoryRepository Test', () => {
       }),
     )
     await comicsInMemoryRepository.update(comicToUpdate, newComic1.id)
-    const output = await comicsInMemoryRepository.getById(newComic1.id)
+    const output = await comicsInMemoryRepository.getOfId(newComic1.id)
     expect(output.id).toStrictEqual(newComic1.id)
     expect(output.name).toStrictEqual(comicToUpdate.name)
     expect(output.authorName).toStrictEqual(comicToUpdate.authorName)

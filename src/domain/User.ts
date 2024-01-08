@@ -11,23 +11,17 @@ export type UserProps = {
 }
 
 export class User {
-  private constructor(
-    readonly id: string,
-    readonly username: string,
-    readonly email: Email,
-    readonly password: IPassword,
-    readonly privilege: Privileges,
-  ) {}
+  private readonly _id: string
+  private readonly props = {} as UserProps
+
+  private constructor(id: string, props: UserProps) {
+    this._id = id
+    this.props = props
+  }
 
   static create(props: UserProps): User {
     const newId = IdGenerateService.ULID()
-    return new User(
-      newId,
-      props.username,
-      props.email,
-      props.password,
-      props.privilege,
-    )
+    return new User(newId, props)
   }
 
   static restore(
@@ -35,8 +29,44 @@ export class User {
     username: string,
     email: Email,
     password: IPassword,
-    privileges: Privileges,
+    privilege: Privileges,
   ): User {
-    return new User(id, username, email, password, privileges)
+    return new User(id, { username, email, password, privilege })
+  }
+
+  updateUsername(value: string): void {
+    if (value) this.props.username = value
+  }
+
+  updateEmail(value: Email): void {
+    if (value) this.props.email = value
+  }
+
+  updatePassword(value: IPassword): void {
+    if (value) this.props.password = value
+  }
+
+  updatePrivilege(value: Privileges): void {
+    if (value) this.props.privilege = value
+  }
+
+  get id(): string {
+    return this._id
+  }
+
+  get username(): string {
+    return this.props.username
+  }
+
+  get email(): Email {
+    return this.props.email
+  }
+
+  get password(): IPassword {
+    return this.props.password
+  }
+
+  get privilege(): Privileges {
+    return this.props.privilege
   }
 }

@@ -37,12 +37,12 @@ export class AuthorsInMemoryRepository implements IAuthorsRepository {
     return new Promise((resolve) => resolve())
   }
 
-  async getById(id: string): Promise<Author> {
+  async getOfId(id: string): Promise<Author> {
     const author = this.db.find((item) => item.id === id)
     return new Promise((resolve) => resolve(author))
   }
 
-  async getByName(name: Name): Promise<Author> {
+  async getOfName(name: Name): Promise<Author> {
     const author = this.db.find((item) => item.name === name)
     return new Promise((resolve) => resolve(author))
   }

@@ -44,7 +44,7 @@ export class ComicsInMemoryRepository implements IComicsRepository {
     return new Promise((resolve) => resolve(this.db))
   }
 
-  async getById(id: string): Promise<Comic> {
+  async getOfId(id: string): Promise<Comic> {
     return new Promise((resolve) =>
       resolve(this.db.find((comic) => comic.id === id)),
     )

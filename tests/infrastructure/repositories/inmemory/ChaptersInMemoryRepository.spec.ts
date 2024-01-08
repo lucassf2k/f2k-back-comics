@@ -55,7 +55,7 @@ describe('ChaptersInMemoryRepository Test', () => {
     await chaptersInMemoryRepository.save(newChapter2)
     await chaptersInMemoryRepository.delete(newChapter1.id)
     const output = await chaptersInMemoryRepository.list()
-    const chapter = await chaptersInMemoryRepository.getById(newChapter2.id)
+    const chapter = await chaptersInMemoryRepository.getOfId(newChapter2.id)
     expect(output.length).toBe(1)
     expect(chapter.id).toStrictEqual(newChapter2.id)
   })
@@ -68,7 +68,7 @@ describe('ChaptersInMemoryRepository Test', () => {
     }
     const newChapter1 = new Chapter(chapterProps)
     await chaptersInMemoryRepository.save(newChapter1)
-    const output = await chaptersInMemoryRepository.getByTitle(
+    const output = await chaptersInMemoryRepository.getOfTitle(
       newChapter1.title,
     )
     expect(output.title).toStrictEqual(newChapter1.title)
@@ -89,7 +89,7 @@ describe('ChaptersInMemoryRepository Test', () => {
       releaseDate: new Date(),
     })
     await chaptersInMemoryRepository.update(chapterToUpdate, newChapter1.id)
-    const output = await chaptersInMemoryRepository.getById(newChapter1.id)
+    const output = await chaptersInMemoryRepository.getOfId(newChapter1.id)
     expect(output.id).toStrictEqual(newChapter1.id)
     expect(output.number).toStrictEqual(newChapter1.number)
     expect(output.title).toStrictEqual(chapterToUpdate.title)

@@ -10,7 +10,7 @@ export class GetComicOfId implements IGetComicOfId {
   constructor(private readonly comicsRepository: IComicsRepository) {}
 
   async execute(input: GetComicOfIdInput): Promise<GetComicOfIdOutPut> {
-    const output = await this.comicsRepository.getById(input.id)
+    const output = await this.comicsRepository.getOfId(input.id)
     if (!output) throw new NotFoundError()
     return {
       id: output.id,
