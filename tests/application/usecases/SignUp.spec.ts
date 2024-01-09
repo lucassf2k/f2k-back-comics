@@ -39,7 +39,7 @@ describe('SignUp Test', () => {
   test('should throw an api error if the username is already in use', async () => {
     const signUpInput2: SignUpInput = {
       username: 'test123',
-      email: 'test@mail.com',
+      email: 'tes2t@mail.com',
       password: '123456',
     }
     const sut = new SignUp(usersRepository)
