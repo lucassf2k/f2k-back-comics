@@ -68,7 +68,12 @@ describe('User Test', () => {
   })
 
   test('should update email and password', () => {
-    const sut = User.create(userProps)
+    const sut = User.create({
+      username: '',
+      email: new Email('test@mail.com'),
+      password: PBKDF2Password.create('123456'),
+      privilege: Privileges.READER,
+    })
     sut.updateEmail(new Email('tes@mail.com'))
     sut.updatePassword(SHA1Password.create('12345'))
     expect(sut.id).toBeTruthy()
