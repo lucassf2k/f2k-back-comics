@@ -19,3 +19,12 @@ GET http://localhost:3001/api/comics/search/?name=asdasd
 ###
 GET http://localhost:3001/api/comics/asdasdsad
 
+### Users
+POST http://localhost:3001/api/signup
+content-type: application/json
+
+{
+  "username": "lucassf2k",
+  "email": "lucas@mail.com",
+  "password": "vamoslaaoporto"
+}
