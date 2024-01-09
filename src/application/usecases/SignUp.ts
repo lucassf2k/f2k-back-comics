@@ -18,10 +18,12 @@ export class SignUp implements ISignUp {
     if (!input.username) throw new InvalidParameterError('Username is required')
     if (!input.email) throw new InvalidParameterError('E-mail is required')
     if (!input.password) throw new InvalidParameterError('Password is required')
-    const isUserExists = await this.usersRepository.getOfUsername(
+    const emailAlreadyInUse = await this.usersRepository.getOfEmail(input.email)
+    if (emailAlreadyInUse) throw new ApiError('Email already in use')
+    const usernameAlreadyInUse = await this.usersRepository.getOfUsername(
       input.username,
     )
-    if (isUserExists) throw new ApiError('User already exists')
+    if (usernameAlreadyInUse) throw new ApiError('Username already in use')
     const newUser = User.create({
       username: input.username,
       email: new Email(input.email),
