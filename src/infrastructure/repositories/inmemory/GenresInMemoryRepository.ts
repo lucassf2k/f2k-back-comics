@@ -20,4 +20,18 @@ export class GenresInMemoryRepository implements IGenresRepository {
       resolve(this.#db)
     })
   }
+
+  async getOfId(id: string): Promise<Genre | undefined> {
+    return new Promise((resolve) => {
+      const user = this.#db.find((genre) => genre.id === id)
+      resolve(user)
+    })
+  }
+
+  async getOfName(name: string): Promise<Genre | undefined> {
+    return new Promise((resolve) => {
+      const user = this.#db.find((genre) => genre.name === name)
+      resolve(user)
+    })
+  }
 }
