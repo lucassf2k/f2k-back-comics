@@ -21,7 +21,7 @@ export class SHA1Password implements IPassword {
   }
 
   validate(password: string): boolean {
-    const value = createHash('sha1').update(password).digest('hex')
-    return this.value === value
+    const passwordToValidate = createHash('sha1').update(password).digest('hex')
+    return this.value === passwordToValidate
   }
 }

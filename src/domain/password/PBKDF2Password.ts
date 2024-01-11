@@ -22,9 +22,13 @@ export class PBKDF2Password implements IPassword {
   }
 
   validate(password: string): boolean {
-    const value = pbkdf2Sync(password, this.salt, 100, 64, 'sha512').toString(
-      'hex',
-    )
-    return this.value === value
+    const passwordToValidate = pbkdf2Sync(
+      password,
+      this.salt,
+      100,
+      64,
+      'sha512',
+    ).toString('hex')
+    return this.value === passwordToValidate
   }
 }
