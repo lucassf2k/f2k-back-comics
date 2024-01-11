@@ -5,6 +5,7 @@
     "module": "Node16",
     "outDir": "dist",
     "baseUrl": "src",
+    "sourceMap": true,
     "rootDirs": ["src", "tests"],
     "paths": {
       "@/tests/*": ["../tests/*"],
