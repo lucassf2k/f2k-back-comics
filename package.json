@@ -7,6 +7,7 @@
     "build": "tsc --project tsconfig-build.json && tsc-alias",
     "start": "node .",
     "start:dev": "nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register src/main.ts' -e ts",
+    "start:debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main.js",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:watch": "pnpm test -- --watch",
     "test:coverage": "pnpm test -- --coverage"
