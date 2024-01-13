@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import { Chapter, ChapterProps } from '@/domain/Chapter'
 import { UploadingService } from '@/infrastructure/services/UploadingService'
 import { InvalidParameterError } from '@/domain/errors/InvalidParameterError'
+import { IdGenerateService } from '@/infrastructure/services/IdGenerateService'
 
 let chapterProps: ChapterProps
 let filePath: string
@@ -54,6 +55,15 @@ describe('Chapter Test', () => {
     const sut = Chapter.create(chapterProps)
     sut.addChapterPath(UploadingService.createFilename(file.originalname))
     expect(sut.path).toBeTruthy()
+  })
+
+  test('should restore a chapter', () => {
+    const sut = Chapter.restore(IdGenerateService.ULID(), chapterProps)
+    expect(sut).toHaveProperty('_id')
+    expect(sut).toHaveProperty('number')
+    expect(sut).toHaveProperty('title')
+    expect(sut).toHaveProperty('releaseDate')
+    expect(sut).toHaveProperty('path')
   })
 
   test('should not add file path if name empty', () => {
