@@ -7,10 +7,32 @@ POST http://localhost:3001/api/genres
 content-type: application/json
 
 {
- "name": "Ação"
+ "name": "Fantasia"
 }
 
 ### Comics
+POST http://localhost:3001/api/comics
+content-type: application/json
+
+{
+  "name": "Crônicas nas Estrelas",
+  "synopsis": "Galaxia passa a ser conhecida agora como 'Terra'",
+  "author": {
+    "id": "13423423424",
+    "name": "Lucas Fernandes",
+    "about": "Lorem Epson",
+    "dateOfBirth": "2001-11-18"
+  },
+  "genres": [
+    {
+      "id": "adsadadsda",
+      "name": "Fantasia",
+      "createdAt": "2022-11-11"
+    }
+  ]
+}
+
+###
 GET http://localhost:3001/api/comics
 
 ###
