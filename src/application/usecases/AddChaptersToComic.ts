@@ -26,7 +26,7 @@ export class AddChaptersToComic implements IAddChaptersToComic {
       )
       const chapterPath = UploadingService.joinPaths(comicPath, chapterName)
       UploadingService.createFile(chapterPath, chapter.file.buffer)
-      const newChapter = new Chapter({
+      const newChapter = Chapter.create({
         number: chapter.number,
         title: chapter.title,
         releaseDate,

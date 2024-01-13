@@ -15,7 +15,7 @@ describe('ChaptersInMemoryRepository Test', () => {
       title: 'Title Test',
       releaseDate: new Date(),
     }
-    const newChapter = new Chapter(chapterProps)
+    const newChapter = Chapter.create(chapterProps)
     await chaptersInMemoryRepository.save(newChapter)
     const output = await chaptersInMemoryRepository.list()
     expect(output.length).toBe(1)
@@ -27,9 +27,9 @@ describe('ChaptersInMemoryRepository Test', () => {
       title: 'Title Test',
       releaseDate: new Date(),
     }
-    const newChapter1 = new Chapter(chapterProps)
+    const newChapter1 = Chapter.create(chapterProps)
     await chaptersInMemoryRepository.save(newChapter1)
-    const newChapter2 = new Chapter({
+    const newChapter2 = Chapter.create({
       number: '002',
       title: 'Title2 Test',
       releaseDate: new Date(),
@@ -45,9 +45,9 @@ describe('ChaptersInMemoryRepository Test', () => {
       title: 'Title Test',
       releaseDate: new Date(),
     }
-    const newChapter1 = new Chapter(chapterProps)
+    const newChapter1 = Chapter.create(chapterProps)
     await chaptersInMemoryRepository.save(newChapter1)
-    const newChapter2 = new Chapter({
+    const newChapter2 = Chapter.create({
       number: '002',
       title: 'Title2 Test',
       releaseDate: new Date(),
@@ -66,7 +66,7 @@ describe('ChaptersInMemoryRepository Test', () => {
       title: 'Title Test',
       releaseDate: new Date(),
     }
-    const newChapter1 = new Chapter(chapterProps)
+    const newChapter1 = Chapter.create(chapterProps)
     await chaptersInMemoryRepository.save(newChapter1)
     const output = await chaptersInMemoryRepository.getOfTitle(
       newChapter1.title,
@@ -81,9 +81,9 @@ describe('ChaptersInMemoryRepository Test', () => {
       title: 'Title Test',
       releaseDate: new Date(),
     }
-    const newChapter1 = new Chapter(chapterProps)
+    const newChapter1 = Chapter.create(chapterProps)
     await chaptersInMemoryRepository.save(newChapter1)
-    const chapterToUpdate = new Chapter({
+    const chapterToUpdate = Chapter.create({
       number: '002',
       title: 'Title Updated',
       releaseDate: new Date(),

@@ -94,7 +94,7 @@ describe('ComicsInMemoryRepository Test', () => {
       authorName: new Name('Name Updated'),
     })
     comicToUpdate.addChapter(
-      new Chapter({
+      Chapter.create({
         number: '001',
         title: 'Title Test',
         releaseDate: new Date(),

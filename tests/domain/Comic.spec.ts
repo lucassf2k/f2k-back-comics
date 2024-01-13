@@ -31,7 +31,7 @@ describe('Comic Test', () => {
 
   test('should be add a chapter', () => {
     const sut = new Comic(comicProps)
-    const chapter = new Chapter({
+    const chapter = Chapter.create({
       number: '001',
       title: 'Marca do Trovão',
       releaseDate: new Date(),
@@ -42,7 +42,7 @@ describe('Comic Test', () => {
 
   test('should be add path name', () => {
     const sut = new Comic(comicProps)
-    const chapter = new Chapter({
+    const chapter = Chapter.create({
       number: '011',
       title: 'Marca do Trovão',
       releaseDate: new Date(),
@@ -56,7 +56,7 @@ describe('Comic Test', () => {
 
   test('should be not add path name empty', () => {
     const sut = new Comic(comicProps)
-    const chapter = new Chapter({
+    const chapter = Chapter.create({
       number: '022',
       title: 'Marca do Trovão',
       releaseDate: new Date(),
@@ -71,13 +71,13 @@ describe('Comic Test', () => {
     const sut = new Comic(comicProps)
     const direcotory = UploadingService.createDirectory()
     sut.addComicPath(direcotory)
-    const chapter1 = new Chapter({
+    const chapter1 = Chapter.create({
       number: '001',
       title: 'Marca do Trovâo',
       releaseDate: new Date(),
     })
     chapter1.addChapterPath('cap01.pdf')
-    const chapter2 = new Chapter({
+    const chapter2 = Chapter.create({
       number: '002',
       title: 'Marca do Trovâo',
       releaseDate: new Date(),
@@ -94,13 +94,13 @@ describe('Comic Test', () => {
 
   test('should not list all chapter paths in ascending order if comic diretoctry not created', () => {
     const sut = new Comic(comicProps)
-    const chapter1 = new Chapter({
+    const chapter1 = Chapter.create({
       number: '001',
       title: 'Marca do Trovâo',
       releaseDate: new Date(),
     })
     chapter1.addChapterPath('cap01.pdf')
-    const chapter2 = new Chapter({
+    const chapter2 = Chapter.create({
       number: '003',
       title: 'Marca do Trovâo',
       releaseDate: new Date(),

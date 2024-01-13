@@ -13,12 +13,21 @@ export class Chapter {
   private readonly _id: string
   private readonly props: Required<ChapterProps>
 
-  constructor(props: ChapterProps) {
-    if (!this._id) this._id = IdGenerateService.ULID()
+  constructor(id: string, props: ChapterProps) {
+    this._id = id
     this.props = {
       ...props,
       path: props.path || '',
     }
+  }
+
+  static create(props: ChapterProps): Chapter {
+    const newId = IdGenerateService.ULID()
+    return new Chapter(newId, props)
+  }
+
+  static restore(id: string, props: ChapterProps): Chapter {
+    return new Chapter(id, props)
   }
 
   addChapterPath(name: string): void {

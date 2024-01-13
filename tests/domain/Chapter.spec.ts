@@ -23,7 +23,7 @@ describe('Chapter Test', () => {
   })
 
   test('should be create a chapter', () => {
-    const sut = new Chapter({
+    const sut = Chapter.create({
       number: '011',
       title: 'A volta',
       releaseDate: new Date(),
@@ -37,7 +37,7 @@ describe('Chapter Test', () => {
   })
 
   test('should be create a chapter without cover and content urls', () => {
-    const sut = new Chapter(chapterProps)
+    const sut = Chapter.create(chapterProps)
     expect(sut).toHaveProperty('_id')
     expect(sut).toHaveProperty('number')
     expect(sut).toHaveProperty('title')
@@ -45,19 +45,19 @@ describe('Chapter Test', () => {
   })
 
   test('should add cover and content urls', () => {
-    const sut = new Chapter(chapterProps)
+    const sut = Chapter.create(chapterProps)
     sut.addChapterPath('sdadad.pdf')
     expect(sut.path).toBe('sdadad.pdf')
   })
 
   test('should add file path', () => {
-    const sut = new Chapter(chapterProps)
+    const sut = Chapter.create(chapterProps)
     sut.addChapterPath(UploadingService.createFilename(file.originalname))
     expect(sut.path).toBeTruthy()
   })
 
   test('should not add file path if name empty', () => {
-    const sut = new Chapter(chapterProps)
+    const sut = Chapter.create(chapterProps)
 
     expect(() => sut.addChapterPath('')).toThrow(
       new InvalidParameterError('Name not be empty'),

@@ -50,7 +50,7 @@ export class CreateComic implements ICreateComic {
     }
     if (input.chapters) {
       input.chapters.forEach(async (chapter) => {
-        const newChapter = new Chapter({
+        const newChapter = Chapter.create({
           number: chapter.number,
           title: chapter.title,
           releaseDate,
