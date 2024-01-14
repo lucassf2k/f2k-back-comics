@@ -12,7 +12,7 @@ export type UserProps = {
 
 export class User {
   private readonly _id: string
-  private readonly props = {} as UserProps
+  private readonly props: Required<UserProps>
 
   private constructor(id: string, props: UserProps) {
     this._id = id
