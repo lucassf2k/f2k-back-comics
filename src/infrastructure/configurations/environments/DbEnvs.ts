@@ -1,4 +1,3 @@
-import 'dotenv/config'
 const DB_NAME = String(process.env.DB_NAME)
 const DB_PORT = Number(process.env.DB_PORT)
 const DB_USERNAME = String(process.env.DB_USERNAME)

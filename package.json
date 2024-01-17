@@ -5,9 +5,9 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc --project tsconfig-build.json && tsc-alias",
-    "start": "node .",
-    "start:cluster": "node dist/cluster.js",
-    "start:dev": "nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register src/main.ts' -e ts",
+    "start": "node --env-file .env .",
+    "start:cluster": "node --env-file .env dist/cluster.js",
+    "start:dev": "nodemon --watch --env-file .env 'src/' --exec 'ts-node -r tsconfig-paths/register src/main.ts' -e ts",
     "start:debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main.js",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:watch": "pnpm test -- --watch",
@@ -39,7 +39,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "pg-promise": "^11.5.4",
     "ulid": "^2.3.0"
