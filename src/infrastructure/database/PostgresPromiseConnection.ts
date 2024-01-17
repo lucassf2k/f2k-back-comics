@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-use-before-define */
 import pgp from 'pg-promise'
-import { DbEnvs } from '@/infrastructure/configurations/environments/DbEnvs'
+import { ENV } from '@/infrastructure/configurations/environments'
 import { IConnection } from '@/infrastructure/database/protocols/IConnection'
 
 export class PostgresPromiseConnection implements IConnection {
@@ -9,7 +9,7 @@ export class PostgresPromiseConnection implements IConnection {
   private readonly connection: any
 
   private constructor() {
-    this.connection = pgp()(DbEnvs.DB_URL)
+    this.connection = pgp()(ENV.DB_URL)
   }
 
   static getInstance(): IConnection {
