@@ -1,12 +1,14 @@
 import express from 'express'
 import { routes } from '@/infrastructure/express/routes'
 import { ENV } from '@/infrastructure/configurations/environments'
+import { swaggerService } from '@/infrastructure/services/swaggerService'
 import { errorHandler } from '@/infrastructure/express/middlewares/errorHandler'
 import { staticFilesConfigurations } from '@/infrastructure/express/middlewares/staticFilesConfigurations'
 
 export function expressApplication(): void {
   const app = express()
   app.use(express.json())
+  swaggerService(app)
   app.use(routes)
   staticFilesConfigurations(app)
   app.use(errorHandler)
