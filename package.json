@@ -2,13 +2,13 @@
   "name": "f2k-back-comics",
   "version": "1.0.0",
   "description": "An API rest to distribute comics to both readers and creators",
-  "main": "dist/main.js",
+  "main": "dist/infrastructure/main.js",
   "scripts": {
     "build": "tsc --project tsconfig-build.json && tsc-alias",
     "start": "node --env-file .env .",
     "start:cluster": "node --env-file .env dist/cluster.js",
-    "start:dev": "nodemon --watch --env-file .env 'src/' --exec 'ts-node -r tsconfig-paths/register src/main.ts' -e ts",
-    "start:debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main.js",
+    "start:dev": "nodemon --watch --env-file .env 'src/' --exec 'ts-node -r tsconfig-paths/register src/infrastructure/main.ts' -e ts",
+    "start:debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/infrastructure/main.js",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:watch": "pnpm test -- --watch",
     "test:coverage": "pnpm test -- --coverage"
