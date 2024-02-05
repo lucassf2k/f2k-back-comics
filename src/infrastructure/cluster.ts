@@ -2,7 +2,7 @@ import OS from 'node:os'
 import cluster from 'node:cluster'
 import { expressApplication } from '@/infrastructure/express'
 
-const CPUsAvailableCount = OS.availableParallelism()
+const CPUsAvailableCount = OS.availableParallelism() - 1
 
 function runPrimaryProcess(): void {
   console.log(`Numbers of CPUs is ${CPUsAvailableCount}`)

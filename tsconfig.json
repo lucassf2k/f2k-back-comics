@@ -9,7 +9,7 @@
     "rootDirs": ["src", "tests"],
     "paths": {
       "@/tests/*": ["../tests/*"],
-      "@/*": ["*"]
+      "@/*": ["*"],
     },
     "esModuleInterop": true,
     "removeComments": true,
